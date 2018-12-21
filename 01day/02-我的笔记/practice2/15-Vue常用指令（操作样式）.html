@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .xm {
+        height: 300px;
+        background-color: hotpink;
+      }
+
+      .fz {
+        font-size: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 
+        v-bind:class="{ 要添加的类名: 布尔值 }"
+
+        通过 v-bind:class 来动态操作样式，它的值是一个对象
+        对象的键：表示要添加的类名
+        对象的值：是一个布尔值，如果为true，表示添加这个类，如果为false，表示移除这个类
+      -->
+      <!-- <div v-bind:class="{ daa: false }"></div> -->
+      <!-- <div v-bind:class="{ daa: isDaa, fz: false }">春生喜欢的颜色</div> -->
+
+      <!-- 简化语法： -->
+      <div v-bind:class="{xm:isTrue,fz:isTrue}">小马哥的专属</div>
+     
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        样式操作的两种方式：
+        1 class （推荐！！！）
+        2 style 行内样式
+      */
+      const vm = new Vue({
+        el:'#app',
+        data:{
+          isTrue:true
+        }
+      });
+
+
+     
+    </script>
+  </body>
+</html>

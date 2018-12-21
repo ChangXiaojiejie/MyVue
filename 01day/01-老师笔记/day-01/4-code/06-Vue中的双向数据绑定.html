@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 
+        v-model 是一个指令
+        指令：就是 Vue 给 HTML 元素添加的一些特殊标记，这些特殊的标记都是Vue提供的
+             作用：让 HTML 元素具备了原来没有的功能
+        
+        v-model 指令的作用：用来实现数据双向绑定，也就是说：让 文本框的值 和 数据name 双向绑定到一起。只要任意一个改变，另外一个都会自动跟着改变
+        M -> V：修改数据，视图自动发生改变
+        V -> M：修改视图，数据自动发生改变
+       -->
+      <input type="text" v-model="name" />
+      <h1>{{ name }}</h1>
+      <h2>{{ name }}</h2>
+      <h2>{{ name }}</h2>
+      <h2>{{ name }}</h2>
+      <h2>{{ name }}</h2>
+      <h2>{{ name }}</h2>
+      <h2>{{ name }}</h2>
+      <h2>{{ name }}</h2>
+      <h2>{{ name }}</h2>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        如果想要获取文本框的值，只要获取对应的数据即可
+        1 在 文本框 中添加一个指令： v-model="name"
+        2 name 数据就是文本框的值了
+        3 所以，想要获取文本框的值，直接获取 name 数据的值即可
+      */
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          name: 'hello vue.js',
+          msg: ''
+        }
+      })
+    </script>
+  </body>
+</html>

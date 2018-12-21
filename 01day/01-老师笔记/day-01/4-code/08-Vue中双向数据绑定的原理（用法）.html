@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        双向数据绑定的原理：数据劫持
+        Vue 中通过 Object.defineProperty() 方法来实现了 数据劫持 功能
+        通过这个方法，可以在 访问属性或给属性赋值 的时候，添加一些额外的操作进来
+
+        Object.defineProperty 是 ES5 中一个无法 shim 的特性，这也就是为什么 Vue 不支持 IE8 以及更低版本浏览器。
+
+        兼容性： IE9+ 以及 其他的现代浏览器
+        无法 shim 是说浏览器不支持，并且也无法通过 自己模拟实现 的方式来实现！！！
+      */
+
+      // Object.defineProperty()
+      // 作用：给对象添加（定义）属性
+      const obj = {}
+      // 借助于中间变量来使用 defineProperty
+      let temp
+      // 第一个参数：表示给哪个对象添加属性
+      // 第二个参数：表示要添加的属性名称
+      // 第三个参数：是一个对象，对象中有两个方法，get 和 set
+      Object.defineProperty(obj, 'name', {
+        // get 和 set 两个方法名称是固定的！！！
+
+        // get的作用：当读取对象属性的时候，会调用get方法
+        // get 方法的返回值： 就是当前属性的值
+        get: function() {
+          return temp
+        },
+        // set的租用：当给对象属性赋值的时候，会调用set方法
+        // 参数 value：表示 给属性设置的值
+        set: function(value) {
+          // console.log('您设置了 obj.name 属性', value)
+          temp = value
+        }
+      })
+    </script>
+  </body>
+</html>

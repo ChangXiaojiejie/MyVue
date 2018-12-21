@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <div id="box">{{text}}</div>
+   
+
+    <script src="./vue.js"></script>
+    <script>
+    
+    //1.下载 vue.js
+    //2.引入vue
+    //3.使用vue
+      // 3.1创建一个vue的实例对象
+    const vm = new Vue({
+      el:'#box',
+      data:{
+        text:"Hello Vue,I'm coming"
+      }
+    });
+    
+    
+    </script>
+
+  </body>
+</html>

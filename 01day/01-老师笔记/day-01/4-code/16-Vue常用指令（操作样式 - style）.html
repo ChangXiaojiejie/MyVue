@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .daa {
+        height: 300px;
+        background-color: #daa520;
+      }
+
+      .fz {
+        font-size: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 
+        v-bind:style="{}"
+        注意： color 或 'font-size' 这两个键，是 CSS 样式属性名称
+       -->
+      <div v-bind:style="{ color: activeColor, 'font-size': fontSize + 'px' }">
+        春生，你在哪？
+      </div>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /*
+        样式操作的两种方式：
+        1 class （推荐！！！）
+        2 style 行内样式
+      */
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          activeColor: '#f00',
+          fontSize: 60
+        }
+      })
+
+      const obj = {
+        // 注意：对象中不合法的属性名应该使用 字符串 包裹！！！
+        'font-size': 66
+      }
+
+      console.log(obj)
+    </script>
+  </body>
+</html>

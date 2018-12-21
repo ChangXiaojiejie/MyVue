@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 
+        v-model 指令用来实现数据双向绑定功能
+        1 只能用在表单元素中
+        2 在不同的表单元素中，功能不同
+          比如： input[type=text] 文本框，此时，操作的是 value 属性
+          比如： input[type=checkbox] 复选框，此时，操作是 checked 属性，也就是：选中状态
+        
+        https://cn.vuejs.org/v2/guide/forms.html
+       -->
+       <input type="text" v-model="isCheck">
+       <input type="checkbox" v-model="isCheck">
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+
+      const vm = new Vue({
+        el:'#app',
+        data:{
+          name:'快带你呀',
+          isCheck:'true'
+        }
+      
+      });
+      
+    </script>
+  </body>
+</html>

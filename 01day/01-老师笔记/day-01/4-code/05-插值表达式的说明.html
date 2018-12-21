@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 
+        {{}} 插值表达式 Mustache语法
+
+        作用：将 msg 数据的值插入到当前位置
+
+        插值表达式中能够使用任意的JS表达式，不能出现语句（ if-else/for/var num = 1 ）
+       -->
+      <h1>{{ msg }}</h1>
+
+      <!-- 语法： -->
+      <p>{{ 123 }}</p>
+      <p>{{ 'abc' }}</p>
+      <p>{{ true }}</p>
+      <p>{{ [1, 4, 8] }}</p>
+      <p>{{ { name: 'jack ' } }}</p>
+      <p>{{ 1 + 2 }}</p>
+      <p>{{ 3 > 5 ? '大于' : '小于等于' }}</p>
+      <p>{{ [1, 4, 8].join('======') }}</p>
+
+      <!-- 错误演示： -->
+      <!-- <p>{{ if (true) { console.log(123) } }}</p> -->
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'Hello Vue'
+        }
+      })
+    </script>
+  </body>
+</html>

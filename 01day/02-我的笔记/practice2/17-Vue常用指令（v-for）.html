@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 
+        语法： v-for="item in arr"
+          item 表示数据中的每一项
+          arr 表示要遍历的数据
+       -->
+      <!-- <p v-for="item in arr">{{ item }}</p> -->
+
+      <!-- 获取到数组每一项以及索引号 -->
+      <!-- <p v-for="(item, index) in arr">{{ index }} -> {{ item }}</p> -->
+
+      <!-- 遍历 对象数组 -->
+      <div v-for="(item,index) in list">{{index}}=========>{{item.name}}</div>
+      
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        v-for 指令：能够遍历指定的数据（数组或对象），重复生成 指令所在的标签
+      
+      */
+      const vm = new Vue({
+        el:'#app',
+        data:{
+          list:[{name:'red'},{name:'green'},{name:'yellow'},{name:'blue'}]
+        }
+      });
+      
+    </script>
+  </body>
+</html>

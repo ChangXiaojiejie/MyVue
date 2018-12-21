@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+
+      //实现原理
+      //1.创建一个空对象和空变量
+      let obj ={};
+      let temp ='';
+      //2.调用Object.defineProperty()
+      Object.defineProperty(obj,'name',{
+        get(){
+          return temp;
+        },
+        set(value){
+          console.log(value)
+          temp = value;
+        }
+      })
+
+      //3.设置get方法 返回中间变量
+
+      //4.设置set方法 将设置的值保存下来赋值给中间变量
+
+      
+
+
+
+    </script>
+  </body>
+</html>

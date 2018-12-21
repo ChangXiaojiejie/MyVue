@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 错误： -->
+      <!-- <a href="{{ url }}">传智播客</a> -->
+
+      <!-- 
+        正确：
+
+        v-bind:href 表示要给当前元素添加 href 属性，v-bind:前缀表示这个属性要使用 data 中的数据，来实现动态绑定
+      -->
+      <!-- <a v-bind:href="url">传智播客</a> <img v-bind:src="imgSrc" alt="" /> -->
+
+      <!-- 简化语法： -->
+      <a :href="url">传智播客</a> <img :src="imgSrc" alt="" />
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        {{}} 不能用在 HTML 属性中！！！
+        如果要给 HTML属性 动态设置内容，需要使用 v-bind 指令
+      */
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          url: 'http://itcast.cn/',
+          imgSrc: './imgs/1.png'
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 注意：只有 div 内部的内容，才会受到Vue管理 -->
+    <div id="app">
+      <!-- 
+        插值表达式：将 data 中数据 msg 的值插入到 {{}} 所在的位置
+      -->
+    <p>{{text}}</p>
+    </div>
+    <p>{{text}}</p>
+
+    <!-- 外部： -->
+    <!-- <h1>{{ msg }}</h1> -->
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        注意点：
+          1 Vue 首字母大写
+          2 一般约定使用 vm 作为实例名称
+          3 只有 el 指定的边界内部，才会被 Vue 解析处理
+          4 el 不要指定 body 或 html，否则，就会报错
+       */
+       const vm = new Vue({
+         el:'#app',
+         data:{
+           text:'Vue使用的第一天，还不错'
+         }
+       });
+
+    
+    </script>
+  </body>
+</html>

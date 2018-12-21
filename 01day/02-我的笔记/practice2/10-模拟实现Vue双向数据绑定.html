@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+
+      <input type="text" name="" id="txt">
+      <p id="text"></p>
+   
+    </div>
+
+    <script>
+      /* 
+        模拟实现双向数据绑定：
+        1 数据 -> 视图：(先实现)
+          1.1 通过 defineProperty 定义一个数据 obj.name
+          1.2 在 set 方法中，直接修改对应DOM的内容即可
+
+        2 视图 -> 数据：（再实现）
+          2.1 给文本框绑定input事件
+          2.2 在事件中通过事件对象 e 获取到当前文本框的值 e.target.value
+          2.3 因为要让数据改变，所以，直接给 数据obj.name 赋值
+      */
+
+      //1.获取元素
+      const txt = document.querySelector('#txt');
+      const text = document.querySelector('#text');
+    
+      //2.创建一个空对象和中间变量保存
+      const obj = {};
+      let temp = "";
+  
+      //3.调用  Object.defineProperty 方法
+     Object.defineProperty(obj,'name',{
+       get(){
+         return temp;
+       },
+       set(value){
+
+        //给input设置值
+        txt.value = value;
+
+        //给p设置值
+        text.innerText = value;
+
+        //将value的值保存到temp中
+        temp = value;
+        
+       }
+     });
+
+    //  注册input的input事件
+    txt.oninput = function (e) {
+      
+      // console.log(11111111)
+
+      // 将值同步到obj.name中
+      obj.name = e.target.value;
+    }
+
+
+    
+    </script>
+  </body>
+</html>

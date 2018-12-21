@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 注意：只有 div 内部的内容，才会受到Vue管理 -->
+    <div id="app">
+      <!-- 
+        插值表达式：将 data 中数据 msg 的值插入到 {{}} 所在的位置
+      -->
+      <h1>{{ msg }}</h1>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        Vue使用步骤：
+          1 安装： npm i vue
+          2 引入 vue.js（未压缩版本）
+          3 使用Vue
+          4 创建Vue实例
+            注意：Vue是构造函数，首字母大写
+       */
+
+      const vm = new Vue({
+        // element
+        // 作用：指定页面中的哪块内容作为Vue的视图
+        el: '#app',
+        // 数据
+        data: {
+          msg: 'Hello Vue'
+        }
+      })
+    </script>
+  </body>
+</html>
