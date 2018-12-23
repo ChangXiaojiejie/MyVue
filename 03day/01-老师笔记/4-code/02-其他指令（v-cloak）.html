@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      /* 2 手动添加一个 属性选择器，使用 v-cloak 作为选择器 */
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" v-cloak>
+      <!-- 1 给要遮盖的元素添加 v-cloak指令 -->
+      <div>
+        <h1 v-text="msg"></h1>
+        <h2>{{ msg }}</h2>
+        <h2>{{ msg }}</h2>
+        <h2>{{ msg }}</h2>
+        <h2>{{ msg }}</h2>
+        <h2>{{ msg }}</h2>
+        <h2>{{ msg }}</h2>
+        <h2>{{ msg }}</h2>
+      </div>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        cloak 遮盖物
+
+        v-cloak 指令的作用：解决Vue中的 插值表达式 闪烁的问题
+          使用插值表达式的时候，会看到页面闪了一下，也就是从 {{ msg }} 变为了 msg数据的值
+        
+        给元素添加  v-cloak 指令后，手动添加的 display: none 的样式，会让该元素隐藏
+        当Vue解析模板内容的时候，首先会把 {{}} 解析成对应的数据，并且将 v-cloak 指令，从元素中
+        移除掉。 指令移除后， display: none 的样式 就不再生效了，所以，最终在页面中就看到数据内容了
+      */
+      // alert(1)
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: '你能看到我闪了吗？'
+        }
+      })
+    </script>
+  </body>
+</html>

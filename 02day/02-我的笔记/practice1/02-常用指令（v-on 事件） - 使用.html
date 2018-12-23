@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 
+        事件： 
+        v-on:click
+          v-on: 是绑定事件的前缀
+          click 表示事件名称
+      -->
+      <!-- <button v-on:click="fn" v-on:mouseenter="foo">点我</button> -->
+
+      <!-- 简化语法： -->
+      <button @click="fn">点我</button>
+      <h1>{{ msg }}</h1>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'default'
+        },
+
+        // Vue中的方法，应该在 methods 配置项中提供
+        methods: {
+          // fn: function() {}
+          // ES6中方法的简化语法
+          fn() {
+            // 方法中的this表示当前Vue实例，也就是：vm
+            // console.log('你点我！ 666', this === vm, this.msg)
+            this.msg = '修改了msg数据'
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

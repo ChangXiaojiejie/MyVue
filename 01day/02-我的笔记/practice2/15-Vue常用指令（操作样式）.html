@@ -28,9 +28,12 @@
       -->
       <!-- <div v-bind:class="{ daa: false }"></div> -->
       <!-- <div v-bind:class="{ daa: isDaa, fz: false }">春生喜欢的颜色</div> -->
-
+      <!-- <div :class="{xm:isTrue,fz:isFalse}">蓬蓬的颜色</div> -->
       <!-- 简化语法： -->
-      <div v-bind:class="{xm:isTrue,fz:isTrue}">小马哥的专属</div>
+
+      <div :class="{xm:isTrue}">蓬蓬的颜色</div>
+
+    
      
     </div>
     <script src="./vue.js"></script>
@@ -43,7 +46,8 @@
       const vm = new Vue({
         el:'#app',
         data:{
-          isTrue:true
+          isTrue:true,
+          isFalse: false
         }
       });
 

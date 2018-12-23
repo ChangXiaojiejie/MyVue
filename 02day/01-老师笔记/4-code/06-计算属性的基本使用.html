@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" v-model="num1" />+
+      <input type="text" v-model="num2" />= <span>{{ result }}</span>
+
+      <p>对比测试：<input type="text" v-model="test" /></p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        计算属性：
+          只有当计算属性的依赖项发生改变的时候，计算属性才会被重新计算
+          如果是不相关的数据改变，是不会引起计算属性重新计算的
+
+          在加法计算器的案例中， num1 和 num2 就是 计算属性result 的依赖项
+
+        什么情况下应该使用计算属性？？？
+          如果需要根据data中现有的数据（num1和num2），得到一个新的数据（result），此时就应该使用计算属性
+
+        注意：
+          1 计算属性在使用的时候，不要加 () 调用，否则会报错！！！
+          2 计算属性的值是由方法的返回值决定的
+          3 计算属性的名称不要与 data 中数据名称重名，否则，会报错！
+      */
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          num1: 0,
+          num2: 0,
+
+          test: ''
+        },
+
+        // 计算属性：
+        computed: {
+          result() {
+            console.log('计算属性重新执行了')
+            return this.num1 - 0 + (this.num2 - 0)
+          }
+
+          // 注意：与data中的数据重名会报错！！！
+          // num1() {}
+        }
+      })
+    </script>
+  </body>
+</html>

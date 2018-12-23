@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+    padding : 0 ; 
+    margin : 0 ; 
+    list-style : none ; 
+    }
+    
+  </style>
+
+</head>
+<body>
+
+  <div id="app">
+    <p> 编号====>姓名===年龄===型别</p>
+    <p v-for="(item,index) in list">
+      
+      {{index}}====>{{item.name}}==={{item.age}}==={{item.sex}}
+
+    </p>
+
+  </div>
+
+  <script src="./vue.js"></script>
+
+  <script>
+
+    const vm = new Vue({
+      el:'#app',
+      data:{
+        list:[
+          {name:'zhangsan',age:18,sex:'m'},
+          {name:'lisi',age:30,sex:'m'},
+          {name:'wangwu',age:21,sex:'w'},
+          {name:'maliu',age:63,sex:'m'},
+          {name:'zhaoqi',age:45,sex:'w'},
+          {name:'songba',age:23,sex:'m'},
+        ]
+      }
+    });
+  
+  
+  
+  
+  </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 三种情况中只会有一种情况成立 -->
+      <p v-if="num > 10">大于10</p>
+
+      <p v-if="num > 10">大于10</p>
+      <p v-else-if="num >= 5">大于等于5</p>
+      <p v-else>小于5</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+      v-else 和 v-else-if 是配合 v-if 指令来一起使用的
+      这两个指令的使用类似于 JS 中 if-else
+      
+      必须先使用 v-if 指令，后面才能使用 v-else或v-else-if指令
+      v-if和v-else-if指令所在标签中间不能有其他的标签，必须是连续出现的
+     */
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          num: 10
+        }
+      })
+    </script>
+  </body>
+</html>

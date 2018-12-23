@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!--
+        按键修饰符：
+        @keyup.13 中的 .13 就是键值修饰符，表示：只有当按键keyCode为13的时候，才触发这个事件
+      -->
+      <!-- <input type="text" @keyup.13="fn" /> -->
+
+      <!-- 注意：使用键值修饰符的时候，不要直接使用 魔鬼数字（.13）形式，而应该使用 .enter 这种有意义的方式 -->
+      <!-- <input type="text" @keyup.enter="fn" /> -->
+      <input type="text" @keyup.f2="fn" />
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 自定义按键修饰符的别名
+      // Vue.config.keyCodes.f2 = 113
+
+      // 按键修饰符只在 键盘 事件中才会生效，有： keydown / keypress / keyup
+      // 应该使用有意义的名称，而不是使用魔鬼数字作为按键修饰符
+      // 对于Vue内置的键值，可以直接拿过来使用（.enter / .up / .down）
+      // 对于非Vue内置的键值，应该通过 自定义按键修饰符 的方式来添加别名后，使用别名作为按键修饰符
+
+      // 键值修饰符：
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+
+        methods: {
+          fn() {
+            console.log('键盘 按键了')
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app"><input type="text" v-model="obj.username" /></div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        如果监听对象类型数据的变化，需要添加 deep 属性，来实现深度监听，才能够监听到
+        对象中属性的改变！！！
+
+        注意：如果监听的是对象类型的数据，那么， newVal 和 oldVal 表示同一个对象
+      */
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          obj: {
+            username: ''
+          }
+        },
+
+        watch: {
+          // 监听对象中属性的改变：
+          obj: {
+            // 深度监听
+            deep: true,
+            handler(newVal, oldVal) {
+              console.log(
+                '当前值为：',
+                newVal,
+                ' 上一次的值为：',
+                oldVal,
+                newVal === oldVal
+              )
+            }
+          }
+
+          // obj(newVal, oldVal) {
+          //   console.log('当前值为：', newVal, ' 上一次的值为：', oldVal)
+          // }
+        }
+      })
+    </script>
+  </body>
+</html>

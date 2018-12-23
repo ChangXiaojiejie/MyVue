@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 
+        给方法传递参数：
+
+        fn(123, true) 中的 123 和 true 就表示要传递的参数
+      -->
+      <!-- <button @click="fn(123, true)">点我</button> -->
+
+      <!-- 
+        注意：如果没有给事件处理程序显示通过 () 来传递参数，那么，第一个参数默认表示：事件对象
+       -->
+      <!-- <button @click="foo">点我</button> -->
+
+      <!-- 
+        如果既需要传递参数，又需要拿到事件对象：
+
+        此时，可以通过Vue约定的 $event 来获取到事件对象
+        约定： 将 事件对象 作为第一个参数，其他参数放在后面
+       -->
+      <!-- <button @click="bar($event, 123)">点我</button> -->
+
+      <!-- 这种方式，通过事件处理程序的第一个参数就获取到了事件对象 -->
+      <button @click="test">点我 - 1</button>
+      <!-- 这种方式，因为添加了小括号，添加小括号表示传递参数，但是，小括号中没有传递任何参数，所以，事件处理程序中，无法获取到任何参数 -->
+      <button @click="test()">点我 - 2</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      // 参数：
+      // 事件对象：
+
+      /* 
+        传递参数： 添加小括号就表示要传递参数，此时，如果要在事件处理程序中获取到事件对象，就必须手动指定 $event
+          @click="fn(123, $event)"
+          @click="fn()"
+
+        事件对象的获取：
+          @click="fn" 这种情况下，事件处理程序的第一个参数就是 事件对象
+          @click="fn()" 或 @click="fn(123)" 这两种情况下，必须手动传递 $event 才能拿到事件对象
+      */
+
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+
+        methods: {
+          fn(arg, arg2) {
+            console.log('获取到传递过来的参数为：', arg, arg2)
+          },
+
+          // e 表示事件对象
+          foo(event) {
+            console.log('事件对象：', event)
+          },
+
+          bar(e, arg) {
+            console.log('参数：', e, arg)
+          },
+
+          test(e) {
+            console.log('参数：', e)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+    padding : 0 ; 
+    margin : 0 ; 
+    list-style : none ; 
+    }
+    
+  </style>
+
+</head>
+<body>
+
+  <div id="app">
+
+    <p :style="{'background-color': bgc , color: color }">兄弟们加油</p>
+
+
+
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+
+    const vm = new Vue({
+      el:'#app',
+      data:{
+        bgc:"#ff0",
+        color: "#00f"
+      }
+    });
+  
+  
+  
+  </script>
+
+
+
+
+</body>
+</html>

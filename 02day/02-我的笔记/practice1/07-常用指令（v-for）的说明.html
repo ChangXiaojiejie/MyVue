@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 遍历数组： -->
+      <!-- <ul>
+        <li v-for="item in arr">{{ item }}</li>
+      </ul> -->
+
+      <!--
+        遍历对象：
+
+        item 表示对象中属性的值
+        key 表示对象中属性的键
+        index 表示索引号
+      -->
+      <!-- <ul>
+        <li v-for="(item, key, index) in obj">
+          {{ index }} : {{ key }} -> {{ item }}
+        </li>
+      </ul> -->
+
+      <!-- <p v-for="item in 'abcdefg'">{{ item }}</p> -->
+      <!-- <p v-for="item in 10">{{ item }}</p> -->
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          arr: ['red', 'green', 'blue'],
+          obj: {
+            name: '春生',
+            age: 38,
+            gender: 'male'
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

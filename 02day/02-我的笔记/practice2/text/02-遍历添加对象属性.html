@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+    padding : 0 ; 
+    margin : 0 ; 
+    list-style : none ; 
+    }
+    
+  </style>
+
+</head>
+<body>
+
+  <div id="app">
+
+    <p v-for="value in stu">
+
+    =====>{{value}}
+
+    </p>
+
+  </div>
+
+
+  <script src="./vue.js" ></script>
+  <script>
+
+    const vm = new Vue({
+      el:'#app',
+      data:{
+        stu:{
+          name:'zhangsan',
+          age:18
+        }
+      }
+    });
+    // vm.$set('操作的对象','属性','值');
+    //添加单个属性
+    vm.$set(vm.stu,'sex','m');
+
+    
+    // vm.$set(vm.stu,{
+    //   color:'red',
+    //   game:'LOL'
+    // })
+
+    //添加多个属性 Object.assign  能够将后边的对象（vm.stu 和 {...}）合并在一起，然后将合并的属性赋值给一个目标对象（{}），然后将这个目标对象返回，再将返回值赋值给源对象（vm.stu）
+    //{} 对象存在的意义？
+    //作为目标对象的载体，将后面的对象的属性合并，返回{}中的属性值
+    vm.stu = Object.assign({},vm.stu,{
+      color:'red',
+      game:'LOL'
+    });
+
+    // 等价于
+    vm.stu = Object.assign(
+      {},
+      {
+        name:'zhangsan',
+        age:18
+      },
+      {
+        color:'red',
+        game:'LOL'
+      }
+    );
+
+
+  
+  
+  
+  </script>
+
+
+
+
+</body>
+</html>

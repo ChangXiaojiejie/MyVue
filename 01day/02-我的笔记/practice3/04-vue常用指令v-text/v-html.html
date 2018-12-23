@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+    padding : 0 ; 
+    margin : 0 ; 
+    list-style : none ; 
+    }
+    
+  </style>
+
+</head>
+<body>
+
+  <div id="app" >
+
+    <p v-text="text"></p>
+
+    <div v-html="html"></div>
+
+  </div>
+
+  
+
+
+  <script src="../vue.js" ></script>
+  <script>
+
+    const vm = new Vue({
+      el:'#app',
+      data:{
+        text:'这是文本',
+        html: "<h1>想狗子，要加油呀</h1>"
+      }
+    });
+  
+  
+  
+  
+  </script>
+
+
+
+</body>
+</html>

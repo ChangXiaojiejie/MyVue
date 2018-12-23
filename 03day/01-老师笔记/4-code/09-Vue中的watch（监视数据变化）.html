@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app"><input type="text" v-model="username" /></div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          username: ''
+        },
+
+        // 监视数据变化：
+        watch: {
+          // 对象的键表示要监视的数据
+          // 第一个参数：当前最新值
+          // 第二个参数：表示上一次的值
+          // username(newVal, oldVal) {
+          //   console.log('当前值为：', newVal, ' 上一次的值为：', oldVal)
+          // }
+
+          username: {
+            // handler 是固定的名称！！！
+            handler(newVal, oldVal) {
+              console.log('当前值为：', newVal, ' 上一次的值为：', oldVal)
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>默认： {{ msg }}</p>
+      <p v-once>带有 v-once 指令： {{ msg }}</p>
+      <p v-pre>带有 v-pre 指令： {{ msg }}</p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        v-once 指令：该指令所在元素中的内容，只会被解析一次
+        v-pre 指令：该指令所在的元素中的内容，一次都不会被解析
+          告诉Vue跳过该指令所在的元素，不去遍历该元素以及所有的后代元素
+      */
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: '默认值'
+        }
+      })
+    </script>
+  </body>
+</html>

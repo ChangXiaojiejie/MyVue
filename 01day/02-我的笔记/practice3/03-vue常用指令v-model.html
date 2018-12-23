@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+    padding : 0 ; 
+    margin : 0 ; 
+    list-style : none ; 
+    }
+    
+  </style>
+
+</head>
+<body>
+
+  <div class="app">
+  <input type="text" v-model="text">
+  <div>当前的medel的值为：{{text}}</div>
+  </div>
+
+  <script src="./vue.js" ></script>
+  <script>
+
+    const vm = new Vue({
+      el:'.app',
+      data:{
+        text:'111'
+      }
+    });
+
+
+  
+  
+  </script>
+
+
+
+</body>
+</html>

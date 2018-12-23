@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 这是一个注释 -->
+      <h1 @click="fn">{{ msg }} - {{ test }}</h1>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /*
+        Vue 实例的生命周期：
+
+        学什么？？？
+          1 Vue生命周期的整个流程
+          2 生命周期钩子函数
+
+        Vue生命周期分为三个阶段：
+          1 挂载阶段： 第一次进入页面的时候（ new Vue() 代码执行的时候 ）
+            1.1 数据响应式（ 数据双向绑定 ）
+            1.2 编译（解析）模板
+              $0.outerHTML => "<div id="app"><h1>Hello Vue 生命周期</h1></div>"
+            1.3 渲染DOM（页面）
+              不管有没有指定 tepmlate 选项，页面中的 #app 也就是我们自己写的模板内容，都会被替换掉。
+              如果指定了 template ，就使用 template 编译后的内容，替换 #app
+              如果没有指定 template，就是用 #app 模板内容编译后结构，替换 #app
+
+            说明： Vue 会读取到我们写好的模板内容，在内存中对模板内容进行拷贝，然后，将内存中的内容进行编译（ 注意：我们自己写的模板没有被编译 ），最终，将编译后的内容，渲染到页面中，替换掉了我们写的模板内容
+
+          2 更新阶段： 数据发生改变的时候
+
+          3 卸载阶段： 主动调用 vm.$destory() 方法
+      */
+      const vm = new Vue({
+        el: '#app',
+
+        // 指定template
+        // 如果指定了 template 就以template的内容作为模板进行编译
+        // 如果没有指定 template 就以 #app 作为模板内容进行编译
+        // template: `
+        //   <h2>这是 template 选项的模板内容</h2>
+        // `,
+
+        data: {
+          msg: 'Hello Vue 生命周期',
+          test: '',
+          timerId: null
+        },
+
+        methods: {
+          fn() {
+            console.log('单击事件触发了')
+            this.msg = '修改后的数据'
+          }
+        },
+
+        // 注意：这是最早执行的钩子函数，在这个钩子函数中无法获取到 data 中数据以及 methods 中的方法
+        beforeCreate() {
+          console.warn('生命周期钩子函数： beforeCreate', this.msg, this.fn)
+        },
+
+        // 重点钩子函数
+        // 作用： 发送ajax请求
+        // 如果需要进入页面的时候，就发送请求获取数据，此时，可以直接在 created 钩子函数中发送请求
+        created() {
+          console.warn('生命周期钩子函数： created', this.msg, this.fn)
+
+          this.timerId = setInterval(() => {
+            console.log('定时器执行了')
+          }, 500)
+        },
+
+        // 渲染DOM前，执行的钩子函数
+        beforeMount() {
+          console.warn(
+            '生命周期钩子函数： beforeMount',
+            this.$el,
+            this.$el.children[0]
+          )
+
+          this.$el.children[0].style.color = 'red'
+        },
+
+        // 重点钩子函数：
+        // 作用： DOM操作 ，也可以发送ajax请求
+        mounted() {
+          console.warn('生命周期钩子函数： mounted', this.$el)
+
+          // this.$el.children[0].style.color = '#daa520'
+        },
+
+        // 更新阶段
+        beforeUpdate() {
+          console.warn(
+            '生命周期钩子函数： beforeUpdate',
+            this.msg,
+            this.$el.children[0].innerText
+          )
+        },
+        updated() {
+          console.warn(
+            '生命周期钩子函数： updated',
+            this.msg,
+            this.$el.children[0].innerText
+          )
+        },
+
+        // 卸载阶段
+        beforeDestroy() {
+          console.warn('生命周期钩子函数： beforeDestroy')
+        },
+        destroyed() {
+          console.warn('生命周期钩子函数： destroyed')
+
+          // 手动清理定时器
+          clearInterval(this.timerId)
+        }
+      })
+
+      // 手动调用 $mount() 方法，来指定Vue管理边界
+      // vm.$mount('#app')
+    </script>
+  </body>
+</html>

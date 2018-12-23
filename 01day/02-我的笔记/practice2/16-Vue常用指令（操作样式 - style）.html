@@ -6,14 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
-      .daa {
-        height: 300px;
-        background-color: #daa520;
-      }
 
-      .fz {
-        font-size: 50px;
-      }
     </style>
   </head>
 
@@ -23,12 +16,17 @@
         v-bind:style="{}"
         注意： color 或 'font-size' 这两个键，是 CSS 样式属性名称
        -->
-
-       <div v-bind:style="{color:isColor,'font-size': fz + 'px'}">
-
-        你是我的小星星
-
-       </div>
+       <!-- 注意点：
+       1.属性名如果带有-的字符，可采用驼峰命名法，或者加上单引号
+       2.设置直接样式，如果有多个，可以加上单花括号
+       3.多个属性之间用逗号隔开 -->
+       <!-- <div :style="{'background-color':bgc, 'font-size':fz+'px', color:color}">
+         此处有内容的
+       </div> -->
+       <div :style="{'background-color':bgc}">
+          此处有内容的
+        </div>
+       
      
     </div>
 
@@ -43,12 +41,13 @@
       const vm = new Vue({
         el:'#app',
         data:{
-          isColor:'#f0f0f0',
-          fz: 50
+          bgc: "#f90",
+          fz:40,
+          color: "#fff"
         }
       });
 
-  
+     
     </script>
   </body>
 </html>

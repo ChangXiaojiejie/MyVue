@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+    padding : 0 ; 
+    margin : 0 ; 
+    list-style : none ; 
+    }
+
+    .red{
+      color: red;
+    }
+    .yellow{
+      color: yellow;
+    }
+    .green{
+      color: green;
+    }
+    .blue{
+      color: blue;
+    }
+    .skyblue{
+      color: skyblue;
+    }
+    
+  </style>
+
+</head>
+<body>
+
+  <div class="app" >
+
+    <p v-bind:class="{red: isTrue}">这是一个P</p>
+    <p v-bind:class="{blue: isTrue}">这是一个P</p>
+    <p v-bind:class="{skyblue: isFalse}">这是一个P</p>
+    <p v-bind:class="{yellow: isTrue}">这是一个P</p>
+    <p v-bind:class="{green:isFalse}">这是一个P</p>
+
+
+
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+
+    const vm = new Vue({
+      el:'.app',
+      data:{
+        isFalse: false,
+        isTrue:true
+      }
+    });
+  
+  
+  
+  </script>
+
+
+
+</body>
+</html>

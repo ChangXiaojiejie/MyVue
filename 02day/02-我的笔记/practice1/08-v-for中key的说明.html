@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- <p v-for="item in list" v-bind:key="item.id">{{ item.name }}</p> -->
+      <p v-for="item in list" :key="item.id">{{ item.name }}</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        结论：只要使用 v-for 指令，就要添加 key 属性，key属性的值是唯一的，一般就是用数据中的 id 作为key值！
+      */
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          list: [
+            { id: 1, name: '吃饭', done: true },
+            { id: 2, name: '睡觉', done: false },
+            { id: 3, name: '学习', done: true }
+          ]
+        }
+      })
+    </script>
+  </body>
+</html>

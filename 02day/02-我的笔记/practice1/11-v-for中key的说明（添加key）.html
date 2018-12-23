@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <p v-for="item in list" :key="item.id">{{ item.name }}</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        结论：只要使用 v-for 指令，就要添加 key 属性，key属性的值是唯一的，一般就是用数据中的 id 作为key值！
+
+        为什么要加key？key有什么作用？
+        1 使用 v-for 不添加 key 的问题演示
+          临时状态（也就是在文本框中输入的 很帅 文字）出现在错乱
+        2 为什么会有这样的问题？
+          Vue中使用v-for渲染列表数据的时候，默认采用 就地复用 的策略。 这是出于性能的考虑
+          什么是就地复用？
+
+        默认情况下不添加 key 实际上以每一项的索引号作为 key 的，但是，每项数据的索引号是会发生改变的！所以，插入数据后，数据错乱了
+
+        但是，如果是有 id 作为key，添加数据后，原来数据的 id 是不会改变的。
+          也就是说：原来 id 为2的这一项中有 很帅 这两个字，插入数据后，还是 id为 2 的这一项中有 很帅 这两个字
+        
+        总结：
+          1 默认不添加key的时候，就是按照 索引号 来复用元素，会有问题！！！
+            很明显，也不能使用 索引号 作为key！！！
+          2 添加 key 的时候，应该保证 key 是唯一且不可变的，一般就是每一项的id，此时
+            就是 按照 id 来复用的
+
+        最佳实践：
+          0 只要使用 v-for 就添加key属性
+          1 如果有id，就使用 id 作为key
+          2 如果没有id，只要使用能够保证 key 是唯一的数据即可
+          3 如果列表渲染不依赖于 临时状态 ，此时，就可以使用 index 作为key值
+      */
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          list: [
+            { id: 1, name: '春生' },
+            { id: 2, name: '聪聪' },
+            { id: 3, name: '鹏鹏' }
+          ]
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 添加 v-show 指令，控制元素展示和隐藏 -->
+      <!-- <h1 v-show="isShow">你能看到我吗？？？</h1> -->
+
+      <h1 v-if="isShow">你能看到我吗？？？</h1>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        这两个指令的作用都是用于控制元素的展示和隐藏
+
+        v-show
+          控制元素展示和隐藏，如果值为 true 表示展示该元素；如果只为 false 表示隐藏该元素
+          隐藏元素是通过 CSS 的 display: none 来隐藏的
+
+        v-if
+          控制元素的展示和隐藏，如果值为 true 表示展示该元素；如果值为 false 表示隐藏元素
+          隐藏元素是通过：移除元素，也就是从 HTMl 结构中将这个标签删除来隐藏的
+
+        如何选择使用哪一个？
+          频繁切换元素的展示和隐藏，用 v-show （性能更高）
+          要么展示要么隐藏元素，用 v-if 
+      */
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          isShow: true
+        }
+      })
+    </script>
+  </body>
+</html>

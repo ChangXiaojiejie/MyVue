@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+    padding : 0 ; 
+    margin : 0 ; 
+    list-style : none ; 
+    }
+    
+  </style>
+
+</head>
+<body>
+
+  <div id="app">
+
+    <input type="text" id="txt">
+
+    <div id="text"></div>
+
+  </div>
+
+  <script>
+
+    //1.创建Object.property
+    const obj = {};
+    let temp ;
+    Object.defineProperty(obj,'name',{
+      get(){
+        return temp;
+      },
+      set(value){
+
+        temp = value;
+
+        txt.value = value;
+        text.innerText = value;
+      }
+
+    });
+
+    // 监听输入框
+    txt.oninput = (e)=> {
+
+      obj.name = e.target.value;
+  
+    }
+
+  
+  
+  
+  
+  </script>
+
+
+
+
+</body>
+</html>

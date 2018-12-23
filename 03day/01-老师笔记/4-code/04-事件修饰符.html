@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- a标签跳转页面是一个默认行为 -->
+      <a href="http://itcast.cn/" @click.prevent="fn">传智播客</a>
+
+      <!-- form 表单提交，也是一个默认行为 -->
+      <form action="">
+        <input type="text" />
+        <input type="submit" value="提交" @click.prevent="fn" />
+      </form>
+
+      <button @click.once="fn">你只能点我一次</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        .prevent 是一个事件修饰符，用来阻止浏览器的默认行为
+      
+       */
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+
+        methods: {
+          fn() {
+            console.log('前端学院')
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

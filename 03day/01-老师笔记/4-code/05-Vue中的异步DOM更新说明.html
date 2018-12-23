@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>{{ msg }}</h1>
+      <button @click="fn">改变msg的值</button>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        Vue 中采用异步的方式更新DOM
+          也就是说：数据发生改变后，DOM是没有立即被更新的，而是等到数据不再发生改变的时候，一次性的将所有的DOM更新
+
+          为什么采用异步方式更新DOM？ 性能
+          因为如果数据发生改变就更新DOM，这会进行大量的DOM操作，引起多次浏览器的重绘和重排
+          性能不高！！！
+
+          在某些情况下，可能需要在修改数据后，立即获取到DOM内容，此时，该如何获取？
+          通过 vue 中的 $nextTick() 来获取更新后的DOM
+      */
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: '1 默认值'
+        },
+
+        methods: {
+          fn() {
+            this.msg = '2 修改后的数据'
+
+            // 如果数据变了，DOM就立即更新，那么，这种情况下，DOM会被更新1000次！！！
+            // 这样性能就太低了，所以，Vue中是异步更新DOM
+            // for (let i = 0; i < 1000; i++) {
+            //   this.msg = i
+            // }
+
+            console.log('msg值为：', this.msg)
+            // console.dir('当前el表示的DOM对象：', vm.$el)
+            console.log(
+              '修改数据后，获取到页面中对应的DOM内容为：',
+              vm.$el.children[0].innerText
+            )
+
+            // 获取更新后的DOM
+            // 参数：是一个回调函数，这个回调函数会在DOM更新后立即触发
+            // tick 钟表的滴答声
+            this.$nextTick(() => {
+              console.log(
+                '$nextTick 中获取DOM内容为：',
+                vm.$el.children[0].innerText
+              )
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
