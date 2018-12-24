@@ -128,6 +128,134 @@ MVVM适合带有视图的应用，比如前端（页面），桌面daunt的应�
 
 ​	5.内部的关键字属性名不能自定义，只能使用定义好的属性和方法
 
+
+
+#### vue的生命周期
+
+​        学什么？？？
+
+​          1 Vue生命周期的整个流程
+
+​          2 生命周期钩子函数
+
+​        Vue生命周期分为三个阶段：
+
+​          1 挂载阶段： 第一次进入页面的时候（ new Vue() 代码执行的时候 ）
+
+​            1.1 数据响应式（ 数据双向绑定 ）
+
+​            1.2 编译（解析）模板
+
+​              $0.outerHTML => "<div id="app"><h1>Hello Vue 生命周期</h1></div>"
+
+​            1.3 渲染DOM（页面）
+
+​              不管有没有指定 tepmlate 选项，页面中的 #app 也就是我们自己写的模板内容，都会被替换掉。
+
+​              如果指定了 template ，就使用 template 编译后的内容，替换 #app
+
+​              如果没有指定 template，就是用 #app 模板内容编译后结构，替换 #app
+
+​            说明： Vue 会读取到我们写好的模板内容，在内存中对模板内容进行拷贝，然后，将内存中的内容进行编译（ 注意：我们自己写的模板没有被编译 ），最终，将编译后的内容，渲染到页面中，替换掉了我们写的模板内容
+
+​          2 更新阶段： 数据发生改变的时候
+
+​          3 卸载阶段： 主动调用 vm.$destory() 方法
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 俺有注释 -->
+    <p>{{text}}</p>
+    <input type="text" v-model="text">
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        text: "这是文本",
+        setId : null,
+        num : 0
+      },
+
+      // template:`
+      // <p>我是template的模板</p>
+      // `,
+
+      // 创建Vue实例前的函数 修改无效 在此处设置的事件，销毁vue实例的时候，无法解绑和清除定时器
+      beforeCreate(){
+        this.text = "beforeCreate修改了"
+        console.log('创建Vue实例前的函数,触发了',this.text)
+      },
+
+      // 创建了Vue的实例 可以发送ajax请求
+      created(){
+        // console.log(this.text)
+        this.text = "created修改了"
+        console.log('创建Vue实例的函数触发了',this)
+        this.setId = setInterval(() => {
+          this.num++;
+          console.log(this.num)
+          
+        }, 500);
+      },
+
+       // 渲染DOM前，执行的钩子函数
+      beforeMount(){
+        console.log('渲染DOM前，执行的钩子函数')
+        console.dir(this)
+        console.log(this.$el)
+      },
+
+      // 渲染DOM后，执行的钩子函数
+      mounted(){
+        console.log('渲染DOM后，执行的钩子函数')
+        console.dir(this)
+        console.log(this.$el)
+      },
+
+      //更新前的生命周期的钩子
+      beforeUpdate(){
+        console.log('更新前的数据',this.text,this.$el.children[0].innerText);       
+      },
+      //更新后的声明周期的钩子
+      updated(){
+        console.log('更新后的数据',this.text, this.$el.children[0].innerText);
+      },
+      //销毁前的生命周期钩子函数
+      beforeDestroy(){
+        console.warn('生命周期钩子函数： beforeDestroy')
+      },
+      //销毁前的生命周期钩子函数
+      destroyed(){
+        console.warn('生命周期钩子函数： destroyed')
+        clearInterval(this.setId);
+        
+      }
+    })
+  </script>
+</body>
+
+</html>
+```
+
+
+
+
+
 #### 插值表达式
 
 ​	作用：将msg数据插入到当前的位置
@@ -699,18 +827,22 @@ v-if
 
 ##### 提升性能：v-pre
 
-- 说明：跳过这个元素和它的子元素的编译过程。可以用来显示原始 Mustache 标签。跳过大量没有指令的节点会加快编译。
+- 作用：跳过这个元素和它的子元素的编译过程。可以用来显示原始 Mustache 标签。跳过大量没有指令的节点会加快编译。
+
+**编译指的是：**
+	将模板中的{{text}}解析成对应的内容
+	将模板中@click=”fn”转化为绑定事件
 
 ```html
-<span v-pre>{{ this will not be compiled }}</span>
+<p v-pre>{{text}}</p> //{{text}}
 ```
 
 ##### 提升性能：v-once
 
-- 说明：只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
+- 作用：只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
 
 ```html
-<span v-once>This will never change: {{msg}}</span>
+<p v-once>{{text}}</p> //显示的内容为：这是文本文字
 ```
 
 ---
@@ -724,10 +856,20 @@ v-if
   ​	a标签的跳转的行为
 
   ```
-  
+  <a href="http://itcast.cn" @click.prevent></a>
   ```
 
   ​	form表单的默认提交行为
+
+  ```
+  <form action="./01-其他指令（v-else和v-else-if）.html">
+  
+        <input type="submit" value="提交" @click.prevent="fn()">
+  
+  </form>
+  ```
+
+  
 
 - `.stop` 阻止冒泡，调用 event.stopPropagation()
 
@@ -739,52 +881,171 @@ v-if
 
 ##### 异步 DOM 更新
 
-- 说明：Vue 异步执行 DOM 更新，监视所有数据改变，一次性更新 DOM
+
+
+- 作用：Vue 异步执行 DOM 更新，监视所有数据改变，一次性更新 DOM
 - 优势：可以去除重复数据，对于避免不必要的计算和避免重复 DOM 操作上，非常重要
 - `Vue.nextTick(callback)`：在 DOM 更新后，执行某个操作（DOM 操作）
   - `vm.$nextTick(function () {})`
-  - `$el`：表示 Vue 管理区域的根元素，是一个 DOM 对象
+  - `$el`：表示 Vue 管理区域的根元素，是一个 DOM 对象（<div id="app">...</div>）
 
 ```js
-methods: {
-  fn () {
-    this.msg = 'change'
-    this.$nextTick(function () {
-      console.log('$nextTick中打印：', this.$el.children[0].innerText)
+const vm = new Vue({
+      el: '#app',
+      data: {
+        text : 1
+      },
+      methods:{
+        fn(){
+          //修改text的值
+          this.text = 100;
+          //获取text的值
+          console.log('打印当前的text的值',this.text)
+
+          //获取到的还是修改之前的数据
+          console.log('打印当前p的值',vm.$el.children[0].innerText)
+          // 通过 vue 中的 $nextTick() 来获取更新后的DOM
+          this.$nextTick(()=>{
+            //获取到的还是修改的数据
+            console.log('打印当前p的值',vm.$el.children[0].innerText)
+            
+          });
+        }
+      }
     })
-    console.log('直接打印：', this.$el.children[0].innerText)
-  }
-}
 ```
 
 #### 动态添加数据的注意点
 
 - 注意：只有`data`中的数据才是响应式的，动态添加进来的数据默认为非响应式
+
 - 可以通过以下方式实现动态添加数据的响应式
   - 1 `Vue.set(object, key, value)` - 适用于添加单个属性
+
   - 2 `Object.assign()` - 适用于添加多个属性
+
+    添加多个属性 Object.assign  能够将后边的对象（vm.stu 和 {...}）合并在一起，然后将合并的属性赋值给一个目标对象（{}），然后将这个目标对象返回，再将返回值赋值给源对象（vm.stu） 
+
+  **{} 对象存在的意义？** 
+
+  ​	作为目标对象的载体，将后面的对象的属性合并，返回{}中的属性值 ，因为拷贝会改变第一个对象的的数据，为了不影响其他对象的数据，设置空对象，接收拷贝的属性，然后再将这个空对象返回
 
 ```js
 const vm = new Vue({
-  data: {
-    stu: {
-      name: 'jack',
-      age: 19
+        el:'#app',
+        data:{
+          obj:{
+            name:'常姐姐'
+          }
+        },
+
+      });
+      //动态添加单条数据
+      vm.$set(vm.obj,'age',18);
+
+      //动态添加多条数据
+      vm.obj = Object.assign({},vm.obj,{
+        sex:'m',
+        deep:'ok'
+      });
+```
+
+#### 监视对象
+
+监视对象中的属性的变化
+
+​	注意点：如果监听对象，需要添加deep属性，来实现深度的监听，可以监听到对象
+
+的属性值的改变
+
+​	监听对象的属性的数据改变，改变前的值和当前值是相等的，原因是newVal和
+
+oldVal表示同一个对象
+
+```
+ 
+ const vm = new Vue({
+      el: '#app',
+      data: {
+        obj: {
+          name: 'changjie',
+          age: 18
+        }
+      },
+      watch: {
+        obj: {
+          deep: true,
+
+          handler(newVal, oldVal) {
+            console.log('最新值为：' + newVal.age, '之前的值为：' + oldVal.age)
+
+          }
+
+        }
+      }
+    })
+```
+
+#### 其他的指令
+
+##### 	v-cloak指令
+
+​	作用：解决在模板的渲染前后会出现闪烁的情况
+
+​	实现的步骤：
+
+​	1.首先给当前的需要处理的标签，添加v-cloak属性
+
+​	2.然后给需要处理的元素设置css样式[v-cloak]:{display:none}
+
+实现的原理：
+
+​	给需要处理的元素添加v-cloak属性，然后在设置[v-cloak]:{display:none}，这样需要处理的元素就会被隐藏，那么等到数据模板渲染完成，那么在移除v-cloak属性，元素就会显示出来，当前元素的内容已经是渲染完成的了
+
+```
+//html
+<div id="app">
+    <div v-cloak>
+        <p>{{text}}</p>
+        <p>{{text}}</p>
+        <p>{{text}}</p>
+        <p>{{text}}</p>
+    </div>
+</div>
+
+//js
+alert('调皮一次啊');
+    const vm = new Vue({
+    el: '#app',
+    data: {
+    	text:'能看见我么'
     }
-  }
 })
-
-/* Vue.set */
-Vue.set(vm.stu, 'gender', 'male')
-vm.$set()
-
-/* Object.assign */
-vm.stu = Object.assign({}, vm.stu, { gender: 'female', height: 180 })
 ```
 
 
 
+####       json-server 
 
+​	是 NodeJS 的一个包，作用：用来提供假数据
+
+​      	在没有服务器接口的时候，通过这个工具提供一个假数据，当有了服务器接口
+
+​      再替换为真正的真数据（服务器接口数据）即可
+
+​      		只要提供一个 json 数据（文件）给 json-server ，那么 json-server 就可以提供
+
+​      针对于这个 json数据的 CRUD 、 分页、 搜索 等功能
+
+
+
+​      使用步骤：
+
+​      1 全局安装： npm i -g json-server
+
+​      2 准备一个 json 文件
+
+​      3 在 json 文件所在目录中，运行命令： json-server todos.json --watch
 
 #### TodoMVC1.0
 

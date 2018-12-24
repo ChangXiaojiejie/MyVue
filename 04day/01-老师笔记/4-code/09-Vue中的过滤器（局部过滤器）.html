@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>{{ curTime | date }}</h1>
+    </div>
+
+    <div id="app1">
+      <h1>{{ curTime1 | date }}</h1>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./node_modules/moment/moment.js"></script>
+    <script>
+      /* 
+        全局过滤器：Vue.filter()
+        局部过滤器： filters: {}
+
+        全局过滤器 和 局部过滤器的不同之处？？？
+          全局过滤器可以在任意 Vue实例（组件） 中使用
+          局部过滤器，只能在当前 Vue实例（组件）中使用
+      */
+      Vue.filter('date', input => {
+        return moment(input).format('YYYY-MM-DD HH:mm:ss')
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          curTime: new Date()
+        }
+
+        // 局部过滤器：
+        // filters: {
+        //   date(input, format = 'YYYY-MM-DD HH:mm:ss') {
+        //     return moment(input).format(format)
+        //   }
+        // }
+      })
+
+      const vm1 = new Vue({
+        el: '#app1',
+        data: {
+          curTime1: new Date()
+        }
+
+        // 局部过滤器：
+        // filters: {
+        //   date(input, format = 'YYYY-MM-DD HH:mm:ss') {
+        //     return moment(input).format(format)
+        //   }
+        // }
+      })
+    </script>
+  </body>
+</html>

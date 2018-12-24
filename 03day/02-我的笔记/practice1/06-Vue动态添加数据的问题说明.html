@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <ul id="app">
+      <!-- <li v-for="(item,index) in list">
+        {{item.id}}==>{{item.name}}==>{{item.sex}}
+        
+      </li> -->
+      <li>{{obj.name}}</li>
+      <li>{{obj.age}}</li>
+      <li>{{obj.sex}}</li>
+      <li>{{obj.deep}}</li>
+
+    
+    </ul>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        原则：
+          使用Vue的时候，应该现在 data 中声明数据，然后，在视图中使用这些数据！
+        
+        注意：如果访问对象中不存在的属性，不会报错，但是这个属性不是 双向绑定（响应式） 的
+
+        如果需要动态添加响应式数据，可以通过 Vue 中提供的机制来添加：
+            // 第一个参数：表示要给哪个对象添加响应式数据
+            // 第二个参数：表示要添加的属性名称叫什么
+            // 第三个参数：表示要添加的属性的值为多少
+          1 Vue.set(vm.obj, 'age', 19)
+            vm.$set(vm.obj, 'age', 19)
+
+          2 如果需要一次性添加多个属性，可以通过
+            ES6中提供的 Object.assign() 方法来批量添加
+            vm.obj = Object.assign({}, vm.obj, { age: 19, gender: 'male', weight: 180 })
+
+        注意：如果在视图中用到了一个没有在 data 中声明的数据，就会报错！！！
+        [Vue warn]: Property or method "msg" is not defined on the instance but referenced during render. Make sure that this property is reactive, either in the data option, or for class-based components, by initializing the property.
+      */
+
+      const vm = new Vue({
+        el:'#app',
+        data:{
+          list:[
+            {id:1,name:'想子',sex:'m'},
+            {id:2,name:'阳子',sex:'m'},
+            {id:3,name:'大旺',sex:'m'},
+            {id:4,name:'老六',sex:'m'},
+            {id:5,name:'思齐',sex:'w'},
+          ],
+          obj:{
+            name:'常姐姐'
+          }
+        },
+
+      });
+      //动态添加单条数据
+      vm.$set(vm.obj,'age',18);
+
+      //动态添加多条数据
+      vm.obj = Object.assign({},vm.obj,{
+        sex:'m',
+        deep:'ok'
+      });
+
+
+    </script>
+  </body>
+</html>

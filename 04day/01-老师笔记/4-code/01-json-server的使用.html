@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 
+        json-server：
+
+        作用：提供假数据
+
+        优势：提供接口没有跨域问题
+
+        使用方式：
+        1 安装： npm i -g json-server
+        2 创建一个json文件
+        3 运行命令： json-server ./todos.json --watch
+
+        json-server 提供的接口是 REST API（ restful ）
+        查询： GET请求
+          查询所有数据：  http://localhost:3000/todos
+          查询某一条数据：http://localhost:3000/todos/2
+        
+        添加： POST请求
+          接口地址： http://localhost:3000/todos
+
+        修改： PATCH / PUT 请求
+          接口地址： http://localhost:3000/todos/2
+          patch 打补丁
+          如果用的是 PATCH 请求，只需要将你要修改的数据作为参数发送给接口即可
+          如果用的是 PUT 请求，需要将所有的数据全部发送给接口
+        
+        删除： DELETE请求
+          接口地址： http://localhost:3000/todos/2
+      */
+    </script>
+  </body>
+</html>

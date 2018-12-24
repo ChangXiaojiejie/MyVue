@@ -233,3 +233,44 @@ isClear(){
 
 
 
+
+
+
+
+
+
+
+
+#### TodoMVC2.0
+
+将数据保存到localStrong中
+
+1.只要数据发生改变，就要将变化后的数据，保存到localStong 
+
+需要保存的操作：/添加 /删除 /切换任务状态/清除已完成/修改任务名称
+
+实现：1.1在每个操作中都写一份
+
+​	    1.2保存数据只写一次
+
+可以通过Vue的中提供的watch配置型，来监视数据的改变
+
+	watch:{
+		对象的键是要监视的数据
+		第一个参数：当前的最新值
+		第二个参数：表示上一次的值
+		list:{
+		deep：true,
+			handler(newVal,oldVal){
+				console.log('username改变了');
+			}
+		}
+	}	
+进入页面中，就从localStrong中取出数据，赋值给list
+
+注意点：如果localStrong中没有数据，手动设置值[]
+
+const list = JSON.parse(localStrong.getItem('todos'))||[];
+
+2.刷新页面的时候，将数据从localStrong
+

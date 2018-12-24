@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 俺有注释 -->
+    <p>{{text}}</p>
+    <input type="text" v-model="text">
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        text: "这是文本",
+        setId : null,
+        num : 0
+      },
+
+      // template:`
+      // <p>我是template的模板</p>
+      // `,
+
+      // 创建Vue实例前的函数 修改无效 在此处设置的事件，销毁vue实例的时候，无法解绑和清除定时器
+      beforeCreate(){
+        this.text = "beforeCreate修改了"
+        console.log('创建Vue实例前的函数,触发了',this.text)
+      },
+
+      // 创建了Vue的实例 可以发送ajax请求
+      created(){
+        // console.log(this.text)
+        this.text = "created修改了"
+        console.log('创建Vue实例的函数触发了',this)
+        this.setId = setInterval(() => {
+          this.num++;
+          console.log(this.num)
+          
+        }, 500);
+      },
+
+       // 渲染DOM前，执行的钩子函数
+      beforeMount(){
+        console.log('渲染DOM前，执行的钩子函数')
+        console.dir(this)
+        console.log(this.$el)
+      },
+
+      // 渲染DOM后，执行的钩子函数
+      mounted(){
+        console.log('渲染DOM后，执行的钩子函数')
+        console.dir(this)
+        console.log(this.$el)
+      },
+
+      //更新前的生命周期的钩子
+      beforeUpdate(){
+        console.log('更新前的数据',this.text,this.$el.children[0].innerText);       
+      },
+
+      //更新后的声明周期的钩子
+      updated(){
+        console.log('更新后的数据',this.text, this.$el.children[0].innerText);
+      },
+
+      //销毁前的生命周期钩子函数
+      beforeDestroy(){
+        console.warn('生命周期钩子函数： beforeDestroy')
+        
+      },
+
+      
+      //销毁前的生命周期钩子函数
+      destroyed(){
+        console.warn('生命周期钩子函数： destroyed')
+
+        clearInterval(this.setId);
+        
+      }
+
+
+
+
+
+
+
+
+
+
+    })
+  </script>
+</body>
+
+</html>

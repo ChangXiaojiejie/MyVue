@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <a href="http://www.baidu.com" @click.prevent="fn()">百度</a>
+
+    <form action="./01-其他指令（v-else和v-else-if）.html">
+
+
+      <input type="submit" value="提交" @click.prevent="fn()">
+
+
+
+    </form>
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        
+      },
+      methods:{
+        fn(){
+          console.log('阻止了你的默认行为')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

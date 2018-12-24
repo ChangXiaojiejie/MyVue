@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>无参数：{{ curTime | date }}</p>
+      <!-- date('YYYY-MM-DD') 表示传入参数 -->
+      <p>有参数：{{ curTime | date('YYYY-MM-DD') }}</p>
+      <p>有参数：{{ curTime | date('YYYY-MM-DD', 8, true) }}</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./node_modules/moment/moment.js"></script>
+    <script>
+      // 创建日期过滤器
+      Vue.filter(
+        'date',
+        (input, format = 'YYYY-MM-DD HH:mm:ss', arg1, arg2) => {
+          // 回调函数第一个参数：表示要格式化的数据
+          // 后面可以有任意多个参数，这些参数都是在 使用过滤器 的时候传入的
+          console.log('传入参数为：', format, arg1, arg2)
+          return moment(input).format(format)
+        }
+      )
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          curTime: new Date()
+        }
+      })
+    </script>
+  </body>
+</html>

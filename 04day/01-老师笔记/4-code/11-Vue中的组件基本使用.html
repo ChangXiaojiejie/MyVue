@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 使用组件： -->
+      <hello></hello>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        两种注册组件的方式：
+        1 全局组件
+        2 局部组件
+
+        一个组件由三部分组成：HTML+CSS+JS
+      */
+
+      // 注册全局组件：
+      // 第一个参数：表示组件名称
+      // 第二个参数：是一个配置对象，这个配置对象类似于 Vue 构造函数中使用的配置对象
+      //  也就是说：在 Vue 构造函数中能够使用的配置项，几乎都可以用在组件中
+      Vue.component('hello', {
+        // template 作用：指定组件模板
+        template: `
+          <h1>这是我的第一个组件 - Hello 组件</h1>
+        `
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {}
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+
+    <div id="app">
+
+      <p v-if="num > 99">我最大</p>
+      <p v-else-if="num>90">我差一点就是最大了</p>
+      <p v-else>我比不上你们</p>
+
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+      v-else 和 v-else-if 是配合 v-if 指令来一起使用的
+      这两个指令的使用类似于 JS 中 if-else
+      
+      必须先使用 v-if 指令，后面才能使用 v-else或v-else-if指令
+      v-if和v-else-if指令所在标签中间不能有其他的标签，必须是连续出现的
+     */
+     const vm = new Vue({
+       el:'#app',
+       data:{
+         num: 50
+       }
+     });
+
+    </script>
+  </body>
+</html>

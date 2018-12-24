@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const age = 19
+      const name = 'jack'
+      // const msg = '年龄：' + 19 + ', 姓名：' + name
+
+      // 利用字符串模板来拼接字符串：
+      // ${} 作用相当于原来的字符串拼接
+      // ${} 中可以使用任意的JS表达式
+      const msg = `年龄：${age}，姓名：${name}，是否为成年人：${
+        age > 18 ? '是' : '否'
+      }`
+
+      console.log(msg)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "todos": [
+    { "id": 1, "name": "起床", "done": true },
+    { "id": 2, "name": "刷牙+洗脸", "done": false },
+    { "id": 3, "name": "梳头", "done": true },
+    { "id": 4, "name": "关门", "done": true }
+  ]
+}

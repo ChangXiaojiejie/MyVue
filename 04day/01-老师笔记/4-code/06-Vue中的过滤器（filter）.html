@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 过滤器的语法：通过 | 管道符号，来使用过滤器 -->
+      <!-- 
+        作用：使用 date 过滤器，来格式化 curTime 这个数据，最终，将格式化后的数据输出 -->
+      <p>{{ curTime | date }}</p>
+      <p>{{ curTime | date }}</p>
+      <p>{{ curTime | date }}</p>
+      <p>{{ curTime | date }}</p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /*
+        Vue中过滤器的作用： 
+          Vue中的过滤器用来对数据进行格式化处理
+
+        什么叫数据格式化？
+          让一个数据按照我们指定好的格式输出就是数据格式化
+          比如：日期
+            将 “Mon Dec 24 2018 17:17:24 GMT+0800 (中国标准时间)” 形式的日期格式转化为
+            年月日 时分秒 形式的过程就叫数据格式化
+
+        Vue中的过滤器：
+        1 全局过滤器
+        2 局部过滤器
+      */
+
+      // 注册全局过滤器
+      // 第一个参数：表示过滤器的名称
+      // 第二个参数：是一个回调函数，表示过滤器的代码逻辑，也就是说：在使用过滤器的时候，这个回调函数就会执行
+      // 返回值：表示 格式化 的数据内容，这个内容会展示在页面中
+      Vue.filter('date', input => {
+        // 回调函数的第一个参数：表示要格式化的数据，也就是 管道符号 前面的数据
+        // console.log('日期过滤器的代码执行了', input)
+        // return '格式化后的数据'
+
+        return `${input.getFullYear()}-${input.getMonth() + 1}`
+      })
+
+      // console.log(new Date())
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          curTime: new Date()
+        }
+      })
+    </script>
+  </body>
+</html>

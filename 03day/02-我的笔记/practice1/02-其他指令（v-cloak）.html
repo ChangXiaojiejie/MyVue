@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+
+    [v-cloak]{
+      display: none;
+    }
+  
+  
+  
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div v-cloak>
+        <p>{{text}}</p>
+        <p>{{text}}</p>
+        <p>{{text}}</p>
+        <p>{{text}}</p>
+    </div>
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    alert('调皮一次啊');
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        text:'能看见我么'
+      }
+    })
+  </script>
+</body>
+
+</html>

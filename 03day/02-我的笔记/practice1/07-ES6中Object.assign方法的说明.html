@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // assign 分配
+      //
+      // Object.assign()
+
+      const obj = {
+        name: 'jack'
+      }
+
+      // 将第二个及其后面的所有对象参数中的属性，拷贝到第一个对象中，并且将拷贝后的对象
+      // 作为返回值返回
+      // const newObj = Object.assign(obj, { gender: 'male' })
+      // console.log(newObj, obj, newObj === obj)
+
+      // const newObj = Object.assign(
+      //   obj,
+      //   { gender: 'male' },
+      //   { age: 19, gender: '男' }
+      // )
+      // console.log(newObj, obj, newObj === obj)
+
+      // 创建一个新的空对象，将后面所有对象参数中的属性，拷贝到新对象中，并且将这个新对象返回，这样做，不会改变原始对象的结构
+      const newObj = Object.assign({}, obj, {
+        age: 19,
+        gender: 'male',
+        weight: 180
+      })
+    </script>
+  </body>
+</html>
