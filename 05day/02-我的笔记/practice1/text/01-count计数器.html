@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+      <!-- 5.在组件标签上注册事件change，并绑定handlerChange方法（非常重要） -->
+      <!-- 6.在组件标签上添加属性ref为one/two（非常重要） -->
+    <count ref="one" @change="handlerChange"></count>
+    <count ref="two" @change="handlerChange"></count>
+
+    <div>{{total}}</div>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    /**
+     * 计数器实现的步骤
+     * 1.首先创建一个子组件count
+     * 2.在组件中创建模板，在模板中绑定事件handler，插入数据num
+     * 3.在组件中创建模板中调用的方法handler
+     * 4.在模板中设置数据num
+     * 5.在组件标签上注册事件change，并绑定handlerChange方法（非常重要）
+     * 6.在组件标签上添加属性ref为one/two（非常重要）
+     * 7.在Vue实例中，添加方法handlerChange，并通过this.$refs.绑定的名称获取数据
+     * 8.获取到子组件的数据进行操作
+    */
+
+    // 1.首先创建一个子组件count
+    Vue.component('count',{
+      // 2.在组件中创建模板，在模板中绑定事件handler，插入数据num
+      template:`
+        <div @click="handler">{{num}}</div>
+      `,
+      // 4.在模板中设置数据num
+      data(){
+        return {
+          num: 0
+        }
+      },
+      // 3.在组件中创建模板中调用的方法handler
+      methods:{
+        handler(){
+          this.num++;
+          this.$emit("change")
+        }
+      }
+    });
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        total: 0
+      },
+      // 7.在Vue实例中，添加方法handlerChange，并通过this.$refs.绑定的名称获取数据
+      methods:{
+        handlerChange(){
+          // console.log("handlerChange执行了")
+          // console.log(this.$refs.one.num)
+          // console.log(this.$refs.two.num)
+
+          // 8.获取到子组件的数据进行操作
+          this.total = this.$refs.one.num + this.$refs.two.num
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

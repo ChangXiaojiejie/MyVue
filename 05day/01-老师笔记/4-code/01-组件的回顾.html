@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 使用组件： -->
+      <hello :childmsg="parentMsg"></hello>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        组件： 独立、封闭的个体
+
+        组件通讯：
+          1 父 -> 子
+            父组件：Vue实例
+            子组件：hello组件
+      */
+      Vue.component('hello', {
+        template: `
+          <div>这是 hello 组件 -- {{ msg }} | {{ childmsg }}</div>
+        `,
+
+        props: ['childmsg'],
+
+        data() {
+          return {
+            msg: '组件内部的数据'
+          }
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          parentMsg: '父组件中的数据'
+        }
+      })
+    </script>
+  </body>
+</html>

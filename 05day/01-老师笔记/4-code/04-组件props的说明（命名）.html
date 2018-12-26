@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- props -->
+      <hello :child-msg="parentMsg"></hello>
+
+      <!-- <DIV TITLE="div">这是一个DIV</DIV> -->
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        HTML 标签或属性都是不区分大小写的（大小写不敏感的）
+        不管你写的是大写字母的标签名或属性名，还是小写的，最终，都会被转化为小写字母
+
+        同样的，在 Vue 中，给组件传递属性的时候，如果属性名中包含大写字母，在解析的时候，也会被转化为小写字母，再作为属性传递给组件
+
+        如何给props命名：
+        1 使用纯小写字母
+          <hello :childmsg="parentMsg"></hello>
+          props: ['childmsg']
+
+        2 传递属性的时候，使用短横线连接多个单词，在子组件中通过 驼峰命名法 来接收这个数据（规范）
+          传递（短横线连接） <hello :child-msg="parentMsg"></hello>
+          接收（驼峰命名法） props: ['childMsg']
+      */
+      Vue.component('hello', {
+        template: `
+          <div>这是 hello 组件 | {{ childMsg }}</div>
+        `,
+
+        props: ['childMsg']
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          parentMsg: '父组件数据'
+        }
+      })
+    </script>
+  </body>
+</html>

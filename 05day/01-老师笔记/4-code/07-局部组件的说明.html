@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 局部组件： -->
+      <child></child>
+
+      <!-- 使用全局组件 -->
+      <hello></hello>
+
+      <!-- 注意：这样使用会报错！！！ -->
+      <!-- <jack></jack> -->
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        组件注册的两种方式：
+        1 全局组件
+          Vue.component('组件名称', {})
+        2 局部组件
+          通过配置项 components: {}
+
+        两种方式的区别：
+          1 全局组件可以在任意的地方使用
+          2 局部组件只能在所属组件的 模板 中使用
+      */
+      Vue.component('hello', {
+        template: `
+          <div>
+            这是 Hello 组件，一个全局组件
+
+            <jack></jack>
+          </div>
+        `,
+
+        // 组件的子组件，也是一个局部组件：
+        components: {
+          jack: {
+            template: `
+              <div>这是 hello 组件的子组件 jack</div>
+            `
+          }
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          num: 9
+        },
+
+        // 注册局部组件：
+        components: {
+          // 对象的键表示：组件名称
+          // 键值表示：组件的配置对象
+          child: {
+            template: `
+              <div>这是 child 组件 --> {{ msg }}</div>
+            `,
+
+            data() {
+              return {
+                msg: '数据'
+              }
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

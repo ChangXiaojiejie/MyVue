@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    /* 容器 */
+
+    .container {
+      width: 150px;
+    }
+
+    /* 灯 */
+
+    .light {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 100px;
+      margin: 0 auto;
+      color: #fff;
+      background-color: #000;
+    }
+
+    /* 开灯 */
+
+    .turn-on {
+      background-color: #ff0;
+      color: #000;
+    }
+
+    /* 灯座 */
+
+    .bottom {
+      width: 150px;
+      height: 50px;
+      margin-top: 10px;
+      line-height: 50px;
+      text-align: center;
+      color: #fff;
+      background-color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <light-head></light-head>
+    <light-bottom></light-bottom>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    // 创建灯泡组件
+    Vue.component('light-head', {
+      template: `
+        <div class="light">
+          我是一盏灯
+        </div>
+      `
+    })
+
+    // 创建灯座组件
+    Vue.component('light-bottom', {
+      template: `
+        <div class="bottom">
+          <button>开</button>
+          <button>关</button>
+        </div>
+      `
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

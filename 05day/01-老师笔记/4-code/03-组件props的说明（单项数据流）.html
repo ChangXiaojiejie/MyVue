@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- props -->
+      <hello :childmsg="parentMsg" :obj="obj"></hello>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        props：是只读的，在组件中使用的时候，只能读取，不能修改props的值（ 赋值 ）
+          如果修改这个值，会报错！！！
+
+        如果props是一个引用类型的数据，不能直接赋值，但是，可以修改引用类型中某个属性的值。
+
+        单向数据流： 是说组件之间数据流动方向是从 父组件流动到 子组件
+          父组件可以通过 props 将数据传递给子组件，并且，当父组件中的这个数据改变后，
+          这个改变后的数据会自动的再流动到子组件中。也就是说：子组件会自动接收到最新的props数据，并且自动更新
+
+        总结：
+          1 props是只读的属性，只能读取props的值，而不能直接修改props的值
+            如果是引用类型（对象、数组），可以直接修改对象中某个属性的值，但是，如果要求很严谨，也不应该直接修改对象中某个属性的值！！！
+          2 单项数据流： 两个组件之间的数据流动方向，方向是： 父 -> 子
+      */
+      Vue.component('hello', {
+        template: `
+          <div>这是 hello 组件 | {{ childmsg }} | {{ obj.name }} <button @click="fn">修改props</button></div>
+        `,
+
+        props: ['childmsg', 'obj'],
+
+        methods: {
+          fn() {
+            // 直接通过 this 就可以在代码中获取到 props
+            // console.log('获取 props 的值：', this.childmsg)
+            // this.childmsg = 'update'
+
+            console.log(
+              '接收到的对象类型props：',
+              this.obj,
+              this.obj === vm.obj
+            )
+
+            // 可以直接修改对象中某个属性的值，这样不会报错
+            // this.obj.name = 'rose'
+
+            // 对与引用类型的props来说，不能直接赋值，这样就会报错！！！
+            // this.obj = {}
+          }
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          parentMsg: '父组件数据',
+          obj: {
+            name: 'jack'
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

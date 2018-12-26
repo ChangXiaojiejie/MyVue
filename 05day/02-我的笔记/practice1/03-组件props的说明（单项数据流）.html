@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    父亲叫：{{obj.name}}
+
+    <son :child="obj"></son>
+    
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    //创建子组件
+    Vue.component('son',{
+      template:`
+        <div>
+            <p>我是儿子，我爸爸叫：{{child.name}}</p>
+            <button @click="fn">点我给你换爸爸</button>
+        </div>
+      `,
+      props:['child'],
+      methods:{
+        fn(){
+          this.child.name="王五"
+        }
+      }
+
+    });
+
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        obj:{
+          name : "张三"
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

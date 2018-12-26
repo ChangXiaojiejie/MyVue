@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- props -->
+      <hello :childmsg="parentMsg"></hello>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        props：是只读的，在组件中使用的时候，只能读取，不能修改props的值（ 赋值 ）
+          如果修改这个值，会报错！！！
+
+      */
+      Vue.component('hello', {
+        template: `
+          <div>这是 hello 组件 | {{ childmsg }} <button @click="fn">修改props</button></div>
+        `,
+
+        props: ['childmsg'],
+
+        methods: {
+          fn() {
+            // 直接通过 this 就可以在代码中获取到 props
+            // console.log('获取 props 的值：', this.childmsg)
+            this.childmsg = 'update'
+          }
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          parentMsg: '父组件数据'
+        }
+      })
+    </script>
+  </body>
+</html>

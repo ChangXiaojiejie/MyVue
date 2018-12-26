@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 子组件： -->
+      <!-- @fn 是一个自定义事件， @click 原生事件 -->
+      <!-- 
+        @fn 表示要传递给子组件的自定义事件（方法）名称
+        getChildMsg 就是自定义事件的事件处理程序（值）
+
+        类似于： @click="handleClick"
+      -->
+      <child @fn="getChildMsg"></child>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        子组件将数据传递给父组件：
+          思路：父组件提供一个方法，让子组件调用，子组件调用方法的时候将数据作为参数传递，这样，父组件就拿到子组件中传递过来的数据了
+          function parent(data) {
+            console.log('子组件中传递过来的数据：', data)
+          }
+          子组件调用方法： parent( '要传递给父组件的数据' )
+
+          步骤：
+            1 父组件中提供一个方法
+              说明：这个方法是由子组件调用的
+            2 父组件将这个方法传递给子组件
+            3 子组件调用传递过来的方法（ 触发自定义事件 ）
+              this.$emit('fn')
+            4 将要传递的数据，作为方法参数，进行传递
+              这样，父组件中的方法就会被调用，并且可以通过 形参 来拿到子组件中传递过来的数据了
+      */
+
+      // 注册子组件
+      Vue.component('child', {
+        template: `
+          <div>
+            这是子组件：
+            <button @click="handleClick">给父组件传值</button>
+          </div>
+        `,
+
+        methods: {
+          handleClick() {
+            // 触发自定义事件
+            // 第一个参数：是一个字符串，表示自定义事件名称，也就是 @fn="getChildMsg" 中的 fn
+            // this.$emit('fn')
+
+            // 传递数据：
+            // 第二个以及后面的所有参数，都表示要传递给父组件的数据
+            this.$emit('fn', 'child')
+          }
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+
+        methods: {
+          // 父组件提供的方法
+          getChildMsg(data) {
+            console.log('父组件中接收到子组件中传递过来的数据：', data)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

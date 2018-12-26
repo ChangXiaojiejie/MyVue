@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 两个非父子组件： -->
+      <jack></jack> <rose></rose>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        非父子组件：
+          1 创建一个事件总线（空的Vue实例 bus）
+          2 哪个组件要接收数据，就注册事件
+            bus.$on(事件名称, () => {})
+          3 哪个组件要传递数据，就触发事件
+            bus.$emit(事件名称, 要传递的数据)
+          注意： 注册和触发事件的 bus 是同一个，事件名称也要相同
+        
+        实际上，不管两个组件是什么关系，都可以通过 bus 方式来实现通讯！
+      */
+
+      // 空Vue实例
+      // 事件总线
+      const bus = new Vue()
+
+      Vue.component('jack', {
+        template: `
+          <div>
+            我是 jack 组件:
+            <button @click="fn">对rose说:</button>
+          </div>
+        `,
+
+        methods: {
+          fn() {
+            // 触发事件，并传递数据
+            bus.$emit('jump', 'You jump, i jump too')
+          }
+        }
+      })
+
+      Vue.component('rose', {
+        template: `
+          <div>
+            我是 rose 组件:  {{ msg }}
+          </div>
+        `,
+
+        data() {
+          return {
+            msg: ''
+          }
+        },
+
+        created() {
+          // 注册事件，接收数据
+          bus.$on('jump', data => {
+            console.log('我是rose，接收到jack的话：', data)
+            this.msg = data
+          })
+        }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {}
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <chang></chang>
+      <wang></wang>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        非父子组件：
+          1 创建一个事件总线（空的Vue实例 bus）
+          2 哪个组件要接收数据，就注册事件
+            bus.$on(事件名称, () => {})
+          3 哪个组件要传递数据，就触发事件
+            bus.$emit(事件名称, 要传递的数据)
+          注意： 注册和触发事件的 bus 是同一个，事件名称也要相同
+        
+        实际上，不管两个组件是什么关系，都可以通过 bus 方式来实现通讯！
+      */
+
+
+
+      /**
+        实现的步骤:
+        1.首先创建一个 空的vue实例的对象 bus
+        2.然后创建两个组件，一个临时用于接收 (wang) ，一个临时用于发送数据 (chang)
+        3.给两个组件设置好模板内容
+        4. 组件chang设置方法，在方法中通过bus.$emit获取事件，并设置触发事件的参数
+        5.在组件wang的钩子函数created中声明创建事件listen，并设置获取到参数后的处理
+
+        注意点：虽然用不到vm但是，必须声明创建这个实例，只有指定了vue的边界，代码才能生效
+      */
+
+
+      // 空Vue实例
+      // 事件总线
+      // 1.首先创建一个 空的vue实例的对象 即事件总线bus
+      let bus = new Vue();
+      // 2.然后创建两个组件，一个临时用于接收 (wang) ，一个临时用于发送数据 (chang)
+      Vue.component('chang',{
+        // 3.给两个组件设置好模板内容
+        template:`
+        <p>我是常杰，我想对王婷说：<button @click="fn">加密发送</button></p>
+        `,
+        // 4. 组件chang设置方法，在方法中通过bus.$emit获取事件，并设置触发事件的参数
+        methods:{
+          fn(){
+            bus.$emit('listen','那天我一直在等你')
+          }
+        }
+      });
+      Vue.component('wang',{
+        template:`
+        <p>我是王婷，常杰对我说：{{msg}}</p>
+        `,
+        data(){
+          return {
+            msg:'接收信息中，请等待...'
+          }
+        },
+        // 5.在组件wang的钩子函数created中声明创建事件listen，并设置获取到参数后的处理
+        created(){
+          bus.$on('listen',data=>{
+            this.msg = data
+          })
+          
+        }
+      });
+
+      const vm = new Vue({
+        el:"#app",
+        data:{
+
+        }
+      });
+ 
+
+    </script>
+  </body>
+</html>
