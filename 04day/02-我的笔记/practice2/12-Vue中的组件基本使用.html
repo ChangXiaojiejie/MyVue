@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <h1>圣诞节快乐</h1> -->
+    <chang></chang>
+    <jie></jie>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    Vue.component('chang',{
+      template:`
+        <h1>圣诞节快乐</h1>
+      `,
+      data(){
+        return {
+          msg:'圣诞节快乐'
+        }
+      },
+      beforeCreate(){
+        console.log('创建实例前方法调用')
+      },
+      created(){
+        console.log('创建实例后，方法调用')
+      },
+      beforeMount(){
+        console.log('渲染前调用')
+      },
+      mounted(){
+        console.log('渲染后调用')
+        
+      }
+    })
+
+    Vue.component('jie',{
+      template:`
+        <h1>{{text}}</h1>
+      `,
+      data(){
+        return {
+          text:'元旦快乐'
+        }
+      }
+    })
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        
+      }
+    })
+  </script>
+</body>
+
+</html>

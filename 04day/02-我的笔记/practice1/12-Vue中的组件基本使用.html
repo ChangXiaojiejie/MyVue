@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 使用组件： -->
+      <hello></hello> <hello></hello> <hello></hello> <hello></hello>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        两种注册组件的方式：
+        1 全局组件
+        2 局部组件
+
+        一个组件由三部分组成：HTML+CSS+JS
+      */
+
+      // 注册全局组件：
+      // 第一个参数：表示组件名称
+      // 第二个参数：是一个配置对象，这个配置对象类似于 Vue 构造函数中使用的配置对象
+      //  也就是说：在 Vue 构造函数中能够使用的配置项，几乎都可以用在组件中
+      Vue.component('hello', {
+        // template 作用：指定组件模板
+        // 注意：只能出现一个根节点
+        template: `
+          <div>
+            <h1>这是我的第一个组件 - Hello 组件</h1>
+            <span @click="fn">{{ msg }}</span>
+          </div>
+        `,
+
+        // 通过 data 指定组件中用到的数据
+        // 注意：组件中的数据data，是一个方法，通过方法的返回对象来作为组件数据
+        data() {
+          return {
+            msg: 'Vue Component data'
+          }
+        },
+
+        // 钩子函数
+        created() {
+          console.log('created 钩子函数执行了')
+        },
+
+        // 方法
+        methods: {
+          fn() {
+            console.log('方法执行了')
+          }
+        }
+
+        // watch: {},
+        // computed: {},
+        // filters: {}
+        // ...
+
+        // 注意：使用对象形式的 data 会报错！！！
+        // data: {
+        //   msg: 'Vue Component data'
+        // }
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {}
+      })
+    </script>
+  </body>
+</html>

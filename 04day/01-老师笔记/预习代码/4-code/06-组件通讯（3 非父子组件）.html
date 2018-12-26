@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <jack></jack>
+    <rose></rose> -->
+
+    <div>
+      <p>
+        <span>
+          <a href="javascript:;">
+            <jack></jack>
+          </a>
+        </span>
+      </p>
+    </div>
+
+    <div>
+      <div>
+        <div><span>
+            <rose></rose>
+          </span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    // 例子：
+    //  jack 要对 rose 说： i love u
+
+    // jack组件： 传递（发送）数据 触发事件
+    // rose组件： 接收数据  注册事件
+    // 要传递的数据为： i love u
+
+    // 实际上 event bus（事件总线） 机制，是一种通用的组件通讯方案
+    // 可以实现任意两个组件之间的通讯，而不管两个组件到底什么样的层级关系
+
+    // 非父子组件之间的通讯机制，是通过 事件总线（event bus 公交车） 的机制来实现的
+    // 事件总线：实际上就是一个 空Vue 实例
+    const bus = new Vue()
+
+    // 注册jack组件：
+    Vue.component('jack', {
+      template: `
+      <button @click="fn">我是jack，我要对rose说：</button>
+      `,
+
+      methods: {
+        fn() {
+          // 传递数据
+          // 触发事件的时候，将数据作为参数传递
+          bus.$emit('love', 'i love u')
+        }
+      }
+    })
+
+    // 注册rose组件：
+    Vue.component('rose', {
+      template: `
+        <p>我是rose，听jack说：{{ msg }}</p>
+      `,
+
+      data() {
+        return {
+          msg: ''
+        }
+      },
+
+      // 进入页面，就把事件注册好：
+      created() {
+        // 注册事件，通过回调函数的参数，准备接受数据
+        bus.$on('love', (arg) => {
+          console.log('我是rose，接收到jack的内容：', arg)
+          this.msg = arg
+        })
+      }
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

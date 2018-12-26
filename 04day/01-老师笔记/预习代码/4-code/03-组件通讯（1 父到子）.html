@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 使用子组件： -->
+    <!-- 1 将要传递的数据作为属性传递给子组件 -->
+    <!-- <child msg="123"></child> -->
+
+    <!-- 表示：将父组件data中的数据 parentmsg 的值传递给子组件 -->
+    <child :msg="parentmsg"></child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    // 需求：父组件将数据传递给子组件
+    // 使用步骤：
+    //  1 在组件标签上将要传递的数据作为属性传递给组件
+    //    <child msg="123"></child> 表示传递： msg 数据
+    //  2 在子组件中通过 props 配置项，来显示执行要接收的数据
+    //  现在，就可以在子组件中使用传递过来的数据了
+
+    // 父组件： Vue实例
+    // 子组件： child组件
+
+    // 注册一个子组件
+    Vue.component('child', {
+      template: `
+        <div>子组件接收到父组件中的数据：{{ msg }}</div>
+      `,
+      // 2 子组件中通过 props 配置项，来显示指定要接收的数据
+      props: ['msg']
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        parentmsg: '这是父组件中的数据'
+      }
+    })
+  </script>
+</body>
+
+</html>

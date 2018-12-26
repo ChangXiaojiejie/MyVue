@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 使用局部组件 -->
+    <child></child>
+
+    <!-- 使用全局组件 -->
+    <hello></hello>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    // 注册两种方式：
+    // 1 全局注册 Vue.component(组件名称, {})
+    // 2 局部注册
+    // 
+    // 局部组件只能在当前父组件的模板中使用
+
+    Vue.component('hello', {
+      template: `
+        <div>这是一个全局组件 <child1></child1></div>
+      `,
+
+      // 组件又可以有自己的子组件：
+      components: {
+        // 注意：子组件child1属于 hello 组件，因此，只能在 hello 组件的模板中使用
+        child1: {
+          template: `
+            <div>这是 hello 组件的子组件</div>
+          `
+        }
+      }
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+
+      // 注册局部组件：
+      components: {
+        // child表示组件名称
+        // 值为配置对象，与 Vue.component 中的第二个参数相同
+        // 注意：子组件child属于 Vue实例，因此，只能在 Vue实例的模板中使用
+        child: {
+          template: `
+            <div>这是局部组件 child</div>
+          `
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

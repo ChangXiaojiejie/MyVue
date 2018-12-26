@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/axios/dist/axios.js"></script>
+  <script>
+    // const vm = new Vue({
+    //   el: '#app',
+    //   data: {
+        
+    //   }
+    // })
+
+    // //查询 不传参
+    // axios.get('http://localhost:3000/todos').then(res=>{
+    //   console.log(res.data)
+      
+    //   return res.data
+    // })
+
+    // // 传参查询 
+    // axios.get('http://localhost:3000/todos',
+    // {
+    //   params:{
+    //     _page:1,
+    //     _limit:2
+    //   }
+    // }).then(res=>{
+    //   console.log(res.data)
+      
+    // });
+
+   
+
+    // // // 添加 POST
+    // axios.post('http://localhost:3000/todos',{
+    //   name:'看星星',
+    //   done:false
+    // })
+ 
+
+
+    // // // 修改 patch / put
+
+    // axios.put('http://localhost:3000/todos/11',{
+    //   name:'看熊猫',
+    //   done:true
+    // }).then(res=>{
+    //   res.data
+    // });
+
+    // // 删除delete
+
+    axios.delete('http://localhost:3000/todos/12').then(res=>{
+      console.log('删除成功')
+
+    });
+
+
+
+
+
+  </script>
+</body>
+
+</html>

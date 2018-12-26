@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>父组件中的 parentmsg： {{ parentmsg }}</h1>
+
+    <!-- 使用子组件： -->
+    <!-- 通过 自定义事件 fn，将方法传递给子组件 -->
+    <!-- @click 是原生事件 @fn 就是自定义事件 -->
+    <child @fn="getchildmsg"></child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    // 需求：子组件将数据传递给父组件
+    // 思路：父组件提供一个方法，子组件调用这个方法，将要传递的数据作为方法参数
+
+    // 使用步骤：
+    //  1 父组件中提供一个方法
+    //  2 将这个方法传递给子组件
+    //  3 子组件调用这个方法（ 触发父组件中传递过来的自定义事件 ）
+
+    // 父组件： Vue实例
+    // 子组件： child组件
+
+    // 注册一个子组件
+    Vue.component('child', {
+      template: `
+        <div>
+          <p>这是子组件：</p>
+          <button @click="handleClick">点我将数据传递给父组件</button>
+        </div>
+      `,
+
+      methods: {
+        handleClick() {
+          // 调用父组件中的方法 fn
+          // 注意：通过 $emit 方法来触发事件 fn
+          // 第一个参数：表示要触发的自定义事件名称，也就是 @fn
+          // 第二个参数：表示要传递给父组件的数据
+          this.$emit('fn', 'child msg')
+        }
+      }
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        parentmsg: '这是父组件中的数据'
+      },
+
+      methods: {
+        // 1 父组件中提供一个方法
+        //  注意：这个方法是由子组件调用的，子组件的数据就是通过参数 arg 传递过来的
+        getchildmsg(arg) {
+          console.log('父组件中接受到子组件传递过来的数据：', arg)
+
+          this.parentmsg = arg
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

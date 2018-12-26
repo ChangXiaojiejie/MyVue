@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 使用组件： -->
+    <hello></hello>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    // 组件化：将一个应用划分为一个一个的独立组件，最终，由这些个独立的组件来完成整个应用的功能
+    // 特点：复用
+
+    // 注册组件：
+    Vue.component('hello', {
+      // 模板：
+      // 注意点：template中只能有一个根节点
+      template: `
+        <div>
+          <div>这是 Hello 组件</div>
+          <span>{{ msg }}</span>
+        </div>
+      `,
+
+      // 数据
+      // 注意点：data在组件中是一个方法，通过返回的对象来提供数据
+      data() {
+        return {
+          msg: 'Hello Component'
+        }
+      },
+
+      // Vue实例中的配置项，几乎都可以直接在组件中使用
+      // watch / filter / directives / methods / created ...
+
+      // data: {
+      //   msg: 'Hello Component'
+      // }
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

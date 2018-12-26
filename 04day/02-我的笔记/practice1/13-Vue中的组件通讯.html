@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    这是父组件的值：{{parentMsg}}
+
+    <child :chang="parentMsg">
+
+    </child>
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>  
+
+    Vue.component('child',{
+      template: `
+      
+      <h2>这是子组件，{{chang}}</h2>
+      
+      `,
+      props:['chang']
+    });
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        parentMsg:'我是你爸爸'
+      }
+    })
+  </script>
+</body>
+
+</html>

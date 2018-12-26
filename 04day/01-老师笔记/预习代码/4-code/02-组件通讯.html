@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <h1>{{parentmsg}}</h1> -->
+
+    <!-- 在父组件中直接使用子组件的数据： -->
+    <h1>{{childmsg}}</h1>
+
+    <!-- 使用子组件： -->
+    <child></child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    // 组件是一个独立、封闭的个体
+    // 也就是说：组件中的数据默认情况下，只能在组件内部使用，无法直接在组件外部使用
+
+    // 可以将 Vue实例 看做一个组件
+
+    // 对于组件之间需要相互使用彼此数据的情况，应该使用 组件通讯 机制来解决
+    // 组件通讯的三种情况：
+    // 1 父组件将数据传递给子组件（父 -> 子）
+    // 2 子组件将数据传递给父组件（子 -> 父）
+    // 3 非父子组件（兄弟组件）
+
+    // 注册一个组件：
+    Vue.component('child', {
+      // 报错：无法直接使用父组件中的数据
+      // template: `
+      //   <div>这是子组件：{{ parentmsg }}</div>
+      // `,
+
+      template: `
+        <div>这是子组件：{{ childmsg }}</div>
+      `,
+
+      data() {
+        return {
+          childmsg: '子组件中的数据'
+        }
+      }
+    })
+
+    // 将Vue实例看做父组件：
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        parentmsg: 'Vue实例中的数据'
+      }
+    })
+  </script>
+</body>
+
+</html>

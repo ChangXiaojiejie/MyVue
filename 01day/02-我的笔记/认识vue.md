@@ -1037,15 +1037,59 @@ alert('调皮一次啊');
 
 ​      针对于这个 json数据的 CRUD 、 分页、 搜索 等功能
 
-
-
-​      使用步骤：
+#####       使用步骤：
 
 ​      1 全局安装： npm i -g json-server
 
 ​      2 准备一个 json 文件
 
 ​      3 在 json 文件所在目录中，运行命令： json-server todos.json --watch
+
+​	特点：
+
+​	1.json-server提供的接口是：REST API(restful)
+
+​	2.提供的接口没有跨域问题
+
+##### 查询的方式：get
+
+​	查询所有：
+
+​		http://localhost:3000/todos
+
+​	查询某一条数据（id为2的数据）
+
+​		http://localhost:3000/todos/2
+
+##### 添加：POST请求
+
+​	接口地址：http://localhost:3000/todos
+	在软件中：row--->json
+	不需要写id，直接写
+
+注意点：
+在json中写数据格式必须给键名加上双引号
+
+	{
+		"name":"梳头",
+		"done":false
+	}
+
+##### 修改数据：PATCH /PUT 请求
+
+​	修改id为2的数据
+
+​	接口地址：http：//localhost：3000/todos/2
+
+特点：使用put请求，需要将所有的数据，都发送给接口
+patch 打补丁
+
+
+
+##### 删除数据：DELETE请求
+
+删除id为2
+	接口地址：http://localhost:3000/todos/2
 
 #### TodoMVC1.0
 

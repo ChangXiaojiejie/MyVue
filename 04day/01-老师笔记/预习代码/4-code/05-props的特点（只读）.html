@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>{{ obj.name }}</h1>
+    <child :msg="parentmsg" :obj="obj"></child>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    // props 的特点：只读属性，也就是说：只能读取props的值，而不能直接给 props 赋值（修改）
+    // 注意：如果直接给 props 赋值，会报错！！！
+
+    // 不管什么类型的数据，只要赋值就会报错！！！
+    // 对于引用类型（对象、数组），可以修改对象中属性的值
+
+    // 注册一个子组件
+    Vue.component('child', {
+      template: `
+        <div @click="changeProps">子组件接收到父组件中的数据：{{ msg }}</div>
+      `,
+      props: ['msg', 'obj'],
+
+      methods: {
+        changeProps() {
+          // this.msg = 'update'
+
+          // 可以直接修改 对象中属性的值
+          // this.obj.name = 'rose'
+
+          // 结果为true，说明 接受到的props obj就是 vm中的数据obj
+          // console.log(this.obj === vm.obj)
+
+          // 错误演示！！！！
+          // this.obj = {}
+        }
+      }
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        parentmsg: '这是父组件中的数据',
+
+        obj: {
+          name: 'jack'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

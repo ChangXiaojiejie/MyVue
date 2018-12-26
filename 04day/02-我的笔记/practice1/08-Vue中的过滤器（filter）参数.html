@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{currDate|data("YYYY-MM-DD HH")}}</p>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/moment/moment.js"></script>
+  <script>
+
+    Vue.filter('data',(input,type)=>{
+      //调用comment格式化时间
+     
+      input = moment(input).format(type);
+      return input;
+      // return input.toLocaleString()
+      
+    });
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        currDate : new Date
+      }
+    })
+  </script>
+</body>
+
+</html>
