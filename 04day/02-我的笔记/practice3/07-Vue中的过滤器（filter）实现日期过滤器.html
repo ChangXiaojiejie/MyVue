@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <p>{{currTime | date}}</p>
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    // let date = new Date();
+
+    // date.toLocaleString
+    
+
+    
+
+    Vue.filter('date',input=>{
+      // return input.toLocaleString() //2018/12/26 上午10:36:22
+      // return input.toLocaleTimeString(); //上午10:36:22
+    });
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        currTime : new Date()
+      }
+    })
+  </script>
+</body>
+
+</html>

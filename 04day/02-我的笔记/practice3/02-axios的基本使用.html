@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/axios/dist/axios.js"></script>
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        
+      }
+    })
+    //查询所有
+    // axios.get(' http://localhost:3000/todos').then(res=>{
+    //   console.log(res.data)
+      
+    // });
+    //查询单个
+    // axios.get(' http://localhost:3000/todos/8').then(res=>{
+    //   console.log(res.data)
+      
+    // });
+
+
+    //添加数据
+
+    // axios.post('http://localhost:3000/todos',{
+    //   name:'打游戏',
+    //   done:false
+    // });
+
+    //更新数据
+
+    // axios.put('http://localhost:3000/todos/10',{
+    //   name:'听歌',
+    //   done:false
+    // }).then(res=>{
+    //   console.log(res.data)
+      
+    // });
+
+    // //删除数据
+    // axios.delete('http://localhost:3000/todos/15').then(res=>{
+    //   console.log('删除成功')
+      
+    // });
+
+
+
+
+  </script>
+</body>
+
+</html>

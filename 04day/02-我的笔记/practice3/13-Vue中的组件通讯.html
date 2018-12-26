@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    我是父组件：{{msg}}
+    <item :chang="msg"></item>
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    /**
+     * 步骤：
+     * 1.首先设置子组件上的绑定属性
+     * 2.在子组件中指定这个属性
+     * 3.然后在模板中应用这个属性
+    */
+    
+    Vue.component('item',{
+      template:`
+        <p>我是子组件：{{chang}}</p>
+      `,
+      props:['chang']
+    });
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        msg:'我是你爸爸'
+      }
+    })
+  </script>
+</body>
+
+</html>

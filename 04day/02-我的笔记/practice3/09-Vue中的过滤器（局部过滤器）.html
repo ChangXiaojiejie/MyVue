@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{currTime | date("YYYY-MM-DD HH:mm")}}</p>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/moment/moment.js"></script>
+  <script>
+    
+    // Vue.filter('date',(input,type)=>{
+    //   return moment(input).format(type)
+    // });
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        currTime:new Date()
+      },
+      filters:{
+        date(input,type){
+          return moment(input).format(type)
+        }
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

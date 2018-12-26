@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Emmet 语法： ul[id=list]>li[class=item]{Item $}*3 -->
+    <ul id="list">
+      <li class="item">Item 1</li>
+      <li class="item">Item 2</li>
+      <li class="item">Item 3</li>
+    </ul>
+
+    <script>
+      /* 
+        Vue 中的DOM更新是异步的
+
+        Vue 中更新DOM是只更新变化的地方，也就是说：只有页面中用到的数据改变了，那么这个页面中的元素才会被更新。如果页面中的数据没有改变，那么，页面中的元素是不会被更新的
+
+        这样做的优势：降低了DOM更新，也就是减少了浏览器的重绘和重排，提升了性能
+
+        问题： Vue如何知道要更新哪个地方？？？ 虚拟DOM + diff算法
+
+        为什么不使用原生的DOM对象，而要自己手动创建一个虚拟DOM对象？
+          因为原生DOM对象中有很多属性，而这些属性中绝大部分与页面的表现，没有任何的关系
+
+        diff算法是如何更新DOM的？
+        1 Vue第一次编译模板的时候，会生成一个 虚拟DOM对象
+        2 当有数据发生改变后，Vue又会生成一个新的 虚拟DOM对象
+        3 通过 diff 算法，来对比 更新前后两个虚拟DOM对象，找到不同的地方
+        4 只将变化的地方，更新到页面中，这样，用户就看到页面更新了
+
+        虚拟DOM如何产生的？
+        模板 + data => 虚拟DOM
+        模板 + 新的data  => 新的虚拟DOM对象
+      */
+
+      // 页面中 ul 标签对应的DOM对象：
+      const list = document.getElementById('list')
+      // console.dir(list)
+      let count = 0,
+        str = ''
+      for (let key in list) {
+        str += key + ' '
+        count++
+      }
+
+      console.log(count, str)
+    </script>
+  </body>
+</html>
