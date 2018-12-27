@@ -1,80 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <!-- 指定路由入口： -->
-      <ul>
-        <!-- to属性 和 路由规则中的 path 相匹配 -->
-        <li><router-link to="/home">首页</router-link></li>
-        <li><router-link to="/about">关于</router-link></li>
-      </ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
 
-      <!-- 指定路由出口： -->
-      <router-view></router-view>
-    </div>
+<body>
+  <div id="app">
 
-    <script src="./vue.js"></script>
-    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
-    <script>
-      /* 
-        路由的使用：
+    <router-link to="/chang">常应常静</router-link>
+    <router-link to="/jie">常清静矣</router-link>
+
+    <router-view></router-view>
+
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+  <script>
+
+    //实现的步骤
+
+    /*** 
+
+    1.首先引入vue-router.js文件 记住，先引入vue.js文件
+    2.然后创建 两个 组件，分别用const 接收一下，否则无法绑定到路由上
+    3.在组件中写好模板内容
+    4.在#app内创建路由的入口和路由的出口 路由入口的作用？和路由出口的作用
+    5.创建路由 设置配置项 moutes
+    6.配置项是数组，每个配置项是一个对象，对象中有两个属性，path和component
+    7.在vue的实例中绑定路由（很重要）
+
+    **/
+
+    const Chang = Vue.component('chang',{
+      template:`
+        <h1>常应常静，常清静矣</h1>
+      `
+    });
+
+    const Jie = Vue.component('jie',{
+      template:`
+        <h1>常应常静，</h1>
+      `
+    });
+
+    const router = new VueRouter({
+      routes:[
+        {path:'/chang',component:Chang},
+        {path:'/jie',component:Jie}
+      ]
+    });
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
         
-        1 安装路由： npm i vue-router
-        2 在页面中引入路由的js文件（注意：在引入 Vue 之后）
-        3 创建路由实例
-        4 将路由实例与Vue实例关联到一起
-        5 配置路由规则
-        6 在 页面中 指定组件内容展示的位置（ 路由出口 ）
-        7 在 页面中 指定路由的入口（导航菜单 a标签）
+      },
+      router
+    })
+  </script>
+</body>
 
-        路由内部执行流程：
-        1 点击页面中的 router-link （也就是a标签），浏览器地址栏中的哈希值发生改变
-        2 当哈希值发生改变的时候， vue路由就监听到了这个变化
-        3 vue路由获取到当前的 哈希值 ，将这个哈希值与 配置好的路由规则path 进行匹配
-        4 当匹配成功了，就将当前path对应的组件渲染到页面的 router-view 路由出口的位置
-        5 这样，用户在页面中就看到页面内容变化了
-
-        路由规则匹配是按照 routes 数组中索引号的顺序，一个个进行匹配
-        如果前面的路由匹配成功了，那么，后面的路由规则，就不会再匹配
-      */
-
-      // 注册home组件
-      const Home = Vue.component('home', {
-        template: `
-          <div>这是 Home 组件</div>
-        `
-      })
-      // 快速简洁的注册组件：
-      const About = {
-        template: `
-          <h2>这是 About 组件</h2>
-        `
-      }
-
-      const router = new VueRouter({
-        // 通过该配置配置路由规则
-        routes: [
-          // 每一个路由规则都是一个对象
-          // path 表示路由规则的路径，不要带有#
-          // component 用来指定展示的内容，是一个组件
-          { path: '/home', component: Home },
-          { path: '/about', component: About }
-        ]
-      })
-
-      const vm = new Vue({
-        el: '#app',
-        data: {},
-        // 将路由实例与Vue实例关联到一起
-        router
-      })
-    </script>
-  </body>
 </html>

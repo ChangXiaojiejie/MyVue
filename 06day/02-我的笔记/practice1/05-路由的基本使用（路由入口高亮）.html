@@ -1,78 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <style>
-      .router-link-exact-active,
-      .router-link-active {
-        color: hotpink;
-        font-size: 30px;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div id="app">
-      <!-- 路由入口： -->
-      <!-- <router-link to="/">Index</router-link> -->
-      <router-link to="/home">Home</router-link>
-      <router-link to="/about">About</router-link>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 
-      <!-- <a href="#/home">Home</a> <a href="#/about">About</a> -->
+  <style>
 
-      <!-- 路由出口： -->
-      <router-view></router-view>
-    </div>
+  .router-link-exact-active, 
+  .router-link-active{
+    font-size: 50px;
+    color: crimson;
+  }
+  
+  
+  
+  
+  </style>
+</head>
 
-    <script src="./vue.js"></script>
-    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
-    <script>
-      /* 
-        1 因为 router-link 会给当前匹配的 导航菜单（路由入口） 添加高亮的类名
-        所以，我们只需要给类名添加高亮的样式，就可以实现菜单高亮效果了。
+<body>
+  <div id="app">
+      <router-link to="/">冯小姐</router-link>
 
-        2 如果要使用第三方的样式库（比如：bootstrp），此时，可以在路由中添加 linkActiveClass 配置项，来将默认的高亮类名修改为 样式库 中对应的高亮类名
-        这样，路由就可以配合 样式库 来使用了
-      */
+    <router-link to="/chang">常姐姐</router-link>
+    <router-link to="/xiang">李大狗</router-link>
+    <router-link to="/wang">王美美</router-link>
 
-      const Home = {
-        template: `
-          <div>这是 Home 组件</div>
-        `
-      }
+    <router-view></router-view>
 
-      const Index = {
-        template: `
-          <h1>这是 Index 组件</h1>
-        `
-      }
 
-      const About = {
-        template: `
-          <p>这是 About 组件</p>
-        `
-      }
 
-      const router = new VueRouter({
-        routes: [
-          { path: '/', component: Index },
-          { path: '/home', component: Home },
-          { path: '/about', component: About }
-        ],
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+  <script>
 
-        // 自定义高亮类名：
-        linkActiveClass: 'itcast',
-        linkExactActiveClass: 'my-itcast'
-      })
+    //创建三个组件
+    const Chang = Vue.component('chang',{
+      template:`
+        <h1>常家最漂亮的小姐姐</h1>
+      `
+    });
+    const Xiang = Vue.component('xiang',{
+      template:`
+        <h1>李家最漂亮的小姐姐</h1>
+      `
+    });
+    const Wang = Vue.component('wang',{
+      template:`
+        <h1>王家最漂亮的小姐姐</h1>
+      `
+    });
 
-      const vm = new Vue({
-        el: '#app',
-        data: {},
-        router
-      })
-    </script>
-  </body>
+    const router = new VueRouter({
+      routes:[
+        {path:"/",redirect:'/chang'},
+        {path:"/chang",component:Chang},
+        {path:"/xiang",component:Xiang},
+        {path:"/wang",component:Wang}
+      ],
+      
+      linkExactActiveClass:"GuShi",
+
+      //模糊匹配项
+      linkActiveClass:"CaoMiao"
+    });
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        
+      },
+      router
+    })
+  </script>
+</body>
+
 </html>

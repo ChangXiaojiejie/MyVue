@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack ./src/js/main.js --output ./dist/bundle.js"
   },
   "keywords": [],

@@ -1,43 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <!-- 路由出口： -->
-      <router-view></router-view>
-    </div>
-    <script src="./vue.js"></script>
-    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
-    <script>
-      const Home = {
-        template: `
-          <div>这是 Home 组件</div>
-        `
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
 
-      const router = new VueRouter({
-        routes: [
-          // 默认默认路由：/
-          // { path: '/', component: Home }
+<body>
+  <div id="app">
 
-          // 路由重定向：
-          // 进入页面，这个路由会被默认匹配到，直接通过 redirect 配置项，跳转到了 /home 这个路由，最终，展示的  /home 对应的组件： Home
-          { path: '/', redirect: '/home' },
-          { path: '/home', component: Home }
-        ]
-      })
+    <!-- <router-link to="/chang">点我呀</router-link> -->
 
-      const vm = new Vue({
-        el: '#app',
-        data: {},
-        router
-      })
-    </script>
-  </body>
+    <router-view></router-view>
+
+
+
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+  <script>
+
+    //实现的步骤
+    /***
+    1.首先准备一个组件chang
+    2.然后创建一个vue的路由
+    3.在routes中设置{path:'/',redirect:'/chang'}重定向
+    4.在router中设置{path:'/chang',component:Chang}
+    5.设置路由的出口函数
+    6.在vue实例中绑定路由
+    
+    
+    */
+
+    const Chang = Vue.component('chang',{
+      template:`
+        <h1>能不能看得见我</h1>
+      `
+    });
+
+    const router = new VueRouter({
+      routes:[
+        {path:'/',redirect:'/chang'},
+        {path:'/chang',component:Chang}
+      ]
+    });
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        
+      },
+      router
+    })
+  </script>
+</body>
+
 </html>

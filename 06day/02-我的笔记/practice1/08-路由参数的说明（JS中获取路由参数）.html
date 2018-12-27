@@ -1,90 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <router-link to="/newslist">新闻列表</router-link>
-      <!-- 路由出口： -->
-      <router-view></router-view>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
 
-    <script src="./vue.js"></script>
-    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
-    <script>
-      const NewsList = {
-        template: `
-          <ul>
-            <li><router-link to="/news/1">天气降温，明天最低温度 0 度以下！！</router-link></li>
-            <li><router-link to="/news/2">具有 2018 年结束，仅剩 4 天！</router-link></li>
-            <li><router-link to="/news/3">距离我们毕业还有 好多天！！！</router-link></li>
-          </ul>
-        `
-      }
+<body>
+  <div id="app">
 
-      const NewsInfo = {
-        // 获取路由参数
-        template: `
-          <p>温度这么，啥时候再下雪啊！！！ ===> {{ $route.params.id }}</p>
-        `,
+    <router-link to="/newlist">新闻列表</router-link>
 
-        // 当从 /news/1 切换到 /news/2 的时候， 因为渲染的是同一个组件
-        // 所以，Vue复用了这个组件，因为这样的性能更高！
-        // 但是，复用组件导致 created 钩子函数，不会再次被触发，所以，这种情况下
-        // 只会在第一次的时候，执行 created 钩子函数，切换到 /news/2 的时候不会在执行！！！
+    <router-view></router-view>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+  <script>
 
-        // 第一次进入页面，这个钩子函数就会执行
-        created() {
-          console.log('路由参数为：', this.$route.params.id)
-        },
+    // 实现的步骤
+    /***
+    0.引入cue-touter.js文件
+    1.注册两个组件newList 和 newInfo
+    2.然后在newList填写模板，这个模板中内嵌路由的入口
+    3.在页面中设置一个路由入口和路由的出口
+    4.创建路由，并且设置路由的配置项
+    5.在配置/index由于很多个，无法确定个数，所以使用:id表示通配
+    6.在newInfo中获取当前的路由的参数可以通过{{$route.params.id}}
+    
 
-        // 当切换路由的时候，这个watch就会执行
-        // 可以通过 watch 来监视路由参数的变化：
-        watch: {
-          $route(to, from) {
-            // 对路由变化作出响应...
-            // from 从哪来
-            // to 到哪去
-            // 比如：从 /news/1 切换到 /news/2，此时， from 是 /news/1，to 是 /news/2
-            // console.log('to:', to, ' from:', from)
-            console.log('路由参数为：', to.params.id)
-          }
+    */
+    const newList = {
+      template:`
+        <ul>
+          <li><router-link to="/index/chang">我还好</router-link></li>
+          <li><router-link to="/index/wang">我可以的</router-link></li>
+          <li><router-link to="/index/xu">哈哈哈，我做到了</router-link></li>
+        </ul>
+      `
+    }
+
+    const newInfo={
+      template:`
+          <h1>听说明天会下雨呢=============>{{$route.params.id}}</h1>
+      `,
+      //第一次调用钩子函数会调用，后面的钩子函数不会被调用
+      created() {
+        console.log('路由参数为：', this.$route.params.id)
+      },
+      //监听函数的变化
+      watch:{
+        $route(to, from) {
+          //假如从 /index/xu  ====>  /index/chang
+          //from  /index/xu
+          //to    /index/chang
+          console.log('路由的参数是：',to.params.id)
+          
         }
       }
+    }
 
-      /*
-        比如：新闻详情组件，新闻有很多条，但是 新闻详情组件 只有一个，这样，将多个哈希值映射到同一个组件的情况，应该使用 路由参数（动态路由匹配）
-      */
+    const router = new VueRouter({
+      routes:[
+        {path:'/newlist',component:newList},
+        {path:'/index/:id',component:newInfo}
+      ]
+    });
 
-      const router = new VueRouter({
-        routes: [
-          { path: '/newslist', component: NewsList },
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        
+      },
+      router
+    })
+  </script>
+</body>
 
-          // 因为因为有很多条，具体条数也不确定，所以，我们无法通过下面的方式
-          // 来为每一个新闻单独创建一个 路由规则。
-          // 应该使用一种 动态 的路由，来匹配 符合这种模式的路由，这就是：路由参数
-          // 能够匹配的哈希值为：
-          //  /news/1 或 /news/2 或 /news/abc
-          // 不能匹配的哈希值为：
-          //  /abc 或 /news 或 /news/1/a
-          { path: '/news/:id', component: NewsInfo }
-
-          // { path: '/news/1', component: NewsInfo },
-          // { path: '/news/2', component: NewsInfo },
-          // { path: '/news/3', component: NewsInfo }
-        ]
-      })
-
-      const vm = new Vue({
-        el: '#app',
-        data: {},
-        router
-      })
-    </script>
-  </body>
 </html>

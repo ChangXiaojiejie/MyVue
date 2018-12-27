@@ -1,88 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <style>
-      .router-link-exact-active,
-      .router-link-active {
-        color: hotpink;
-        font-size: 30px;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div id="app">
-      <!-- 路由入口： -->
-      <!-- 
-        exact 表示精确匹配，只有当 哈希值 和 to 属性的值，完全相同的时候，这个 router-link 才会被添加高亮类名
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
 
-        默认，没有 exact 属性的时候，高亮类名添加的方式是模糊匹配，只要 哈希值中包含了 to 属性的值，那么，这个 router-link 就会被添加高亮类名
+<body>
+  <div id="app">
 
-        注意：精确匹配和模糊匹配只对添加 样式名称 有效， 对路由的匹配规则无效！！！
-       -->
-      <router-link to="/" exact>Index</router-link>
-      <router-link to="/home" exact>Home</router-link>
-      <router-link to="/home/123">Home</router-link>
-      <router-link to="/about">About</router-link>
+    <ul>
+      <li><router-link to="/" exact>根目录</router-link></li>
+      <li><router-link to="/index" exact>index目录</router-link></li>
+      <li><router-link to="/index/3" exact>index的第三层</router-link></li>
+    </ul>
 
-      <!-- <a href="#/home">Home</a> <a href="#/about">About</a> -->
+    <router-view></router-view>
 
-      <!-- 路由出口： -->
-      <router-view></router-view>
-    </div>
 
-    <script src="./vue.js"></script>
-    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
-    <script>
-      /* 
-        1 因为 router-link 会给当前匹配的 导航菜单（路由入口） 添加高亮的类名
-        所以，我们只需要给类名添加高亮的样式，就可以实现菜单高亮效果了。
 
-        2 如果要使用第三方的样式库（比如：bootstrp），此时，可以在路由中添加 linkActiveClass 配置项，来将默认的高亮类名修改为 样式库 中对应的高亮类名
-        这样，路由就可以配合 样式库 来使用了
-      */
 
-      const Home = {
-        template: `
-          <div>这是 Home 组件</div>
-        `
-      }
-      const Home123 = {
-        template: `
-          <div>这是 Home123 组件</div>
-        `
-      }
 
-      const Index = {
-        template: `
-          <h1>这是 Index 组件</h1>
-        `
-      }
 
-      const About = {
-        template: `
-          <p>这是 About 组件</p>
-        `
-      }
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+  <script>
 
-      const router = new VueRouter({
-        routes: [
-          { path: '/', component: Index },
-          { path: '/home', component: Home },
-          { path: '/home/123', component: Home123 },
-          { path: '/about', component: About }
-        ]
-      })
+    const Index = Vue.component('index',{
+      template:`
+      <h1>这里是index</h1>
+      `
+    });
 
-      const vm = new Vue({
-        el: '#app',
-        data: {},
-        router
-      })
-    </script>
-  </body>
+    const Three = Vue.component('three',{
+      template:`
+      <h1>这里是three</h1>
+      `
+    });
+
+    const router = new VueRouter({
+      routes:[
+        {path:'/',redirect:'/index'},
+        {path:'/index',component:Index},
+        {path:'/index/3',component:Three}
+      ]
+    });
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        
+      },
+      router,
+    })
+  </script>
+</body>
+
 </html>
