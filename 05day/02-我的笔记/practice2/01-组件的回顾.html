@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    这是父组件：{{msg}}
+
+    <table>
+      <tbody>
+          <tr is='item' :child="msg"></tr>
+          <tr is='item' :child="msg"></tr>
+          <tr is='item' :child="msg"></tr>
+      </tbody>
+    </table>
+
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+    Vue.component('item',{
+
+     template:`
+      <p>我老爸对我说：{{child}}</p>
+     `,
+     props:['child']
+
+
+    });
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        msg:'儿子，老爸给你打钱啦'
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

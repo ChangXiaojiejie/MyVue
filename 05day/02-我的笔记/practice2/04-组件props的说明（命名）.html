@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- <item :changjie="msg"></item> -->
+    
+    <!-- <item :changJie="msg"></item> -->
+
+    <!-- <item :chang-jie="msg"></item> -->
+    
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+
+    Vue.component('item',{
+      template:`
+        <p>作为儿子，{{changJie}}</p>
+      `,
+      // props:['changjie']
+      // props:['changjie']
+      // props:['changJie']
+    });
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        msg:'爸爸给你发信息了'
+      }
+    })
+  </script>
+</body>
+
+</html>

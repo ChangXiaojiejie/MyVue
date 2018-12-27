@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <router-link to="/newslist">新闻列表</router-link>
+      <!-- 路由出口： -->
+      <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+      const NewsList = {
+        template: `
+          <ul>
+            <li><router-link to="/news/1">天气降温，明天最低温度 0 度以下！！</router-link></li>
+            <li><router-link to="/news/2">具有 2018 年结束，仅剩 4 天！</router-link></li>
+            <li><router-link to="/news/3">距离我们毕业还有 好多天！！！</router-link></li>
+          </ul>
+        `
+      }
+
+      const NewsInfo = {
+        // 获取路由参数
+        template: `
+          <p>温度这么，啥时候再下雪啊！！！ ===> {{ $route.params.id }}</p>
+        `,
+
+        // 当从 /news/1 切换到 /news/2 的时候， 因为渲染的是同一个组件
+        // 所以，Vue复用了这个组件，因为这样的性能更高！
+        // 但是，复用组件导致 created 钩子函数，不会再次被触发，所以，这种情况下
+        // 只会在第一次的时候，执行 created 钩子函数，切换到 /news/2 的时候不会在执行！！！
+
+        // 第一次进入页面，这个钩子函数就会执行
+        created() {
+          console.log('路由参数为：', this.$route.params.id)
+        },
+
+        // 当切换路由的时候，这个watch就会执行
+        // 可以通过 watch 来监视路由参数的变化：
+        watch: {
+          $route(to, from) {
+            // 对路由变化作出响应...
+            // from 从哪来
+            // to 到哪去
+            // 比如：从 /news/1 切换到 /news/2，此时， from 是 /news/1，to 是 /news/2
+            // console.log('to:', to, ' from:', from)
+            console.log('路由参数为：', to.params.id)
+          }
+        }
+      }
+
+      /*
+        比如：新闻详情组件，新闻有很多条，但是 新闻详情组件 只有一个，这样，将多个哈希值映射到同一个组件的情况，应该使用 路由参数（动态路由匹配）
+      */
+
+      const router = new VueRouter({
+        routes: [
+          { path: '/newslist', component: NewsList },
+
+          // 因为因为有很多条，具体条数也不确定，所以，我们无法通过下面的方式
+          // 来为每一个新闻单独创建一个 路由规则。
+          // 应该使用一种 动态 的路由，来匹配 符合这种模式的路由，这就是：路由参数
+          // 能够匹配的哈希值为：
+          //  /news/1 或 /news/2 或 /news/abc
+          // 不能匹配的哈希值为：
+          //  /abc 或 /news 或 /news/1/a
+          { path: '/news/:id', component: NewsInfo }
+
+          // { path: '/news/1', component: NewsInfo },
+          // { path: '/news/2', component: NewsInfo },
+          // { path: '/news/3', component: NewsInfo }
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+        router
+      })
+    </script>
+  </body>
+</html>

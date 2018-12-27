@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 路由出口： -->
+      <router-view></router-view>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+      const Home = {
+        template: `
+          <div>这是 Home 组件</div>
+        `
+      }
+
+      const router = new VueRouter({
+        routes: [
+          // 默认默认路由：/
+          // { path: '/', component: Home }
+
+          // 路由重定向：
+          // 进入页面，这个路由会被默认匹配到，直接通过 redirect 配置项，跳转到了 /home 这个路由，最终，展示的  /home 对应的组件： Home
+          { path: '/', redirect: '/home' },
+          { path: '/home', component: Home }
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+        router
+      })
+    </script>
+  </body>
+</html>

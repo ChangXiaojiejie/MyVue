@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		div {
+			height: 500px;
+			width: 100%;
+			background-color: hotpink;
+		}
+	</style>
+</head>
+
+<body>
+	<ul>
+		<li>
+			<a href="#/find">发现音乐</a>
+		</li>
+		<li>
+			<a href="#/my">我的音乐</a>
+		</li>
+		<li>
+			<a href="#/friend">朋友</a>
+		</li>
+	</ul>
+
+	<div id="content">
+		<!-- 这是内容区域 -->
+	</div>
+
+	<script src="./node_modules/axios/dist/axios.js"></script>
+	<script type="text/javascript">
+		// a标签锚点值的作用：页面内部跳转
+
+		// 如何实现单页面应用程序？？？
+		// 
+		// 1 ajax
+		// 2 hash 哈希值（a标签的锚点值）
+		// 3 hashchange 事件：监视 hash 值的变化
+
+		hashChangeHanlder()
+
+		window.addEventListener('hashchange', hashChangeHanlder)
+
+		function hashChangeHanlder() {
+			// console.log('URL中的哈希值改变了', location.hash)
+
+			// 获取哈希值
+			const hash = location.hash
+
+			switch (hash) {
+				case '#/my':
+					axios
+						.get('./my.json')
+						.then(res => {
+							// console.log(res.data)
+							document.getElementById('content').innerText = res.data.content
+						})
+					break;
+
+				case '#/friend':
+					axios
+						.get('./friend.json')
+						.then(res => {
+							// console.log(res.data)
+							document.getElementById('content').innerText = res.data.content
+						})
+
+					break;
+				
+				default:
+					axios
+						.get('./find.json')
+						.then(res => {
+							// console.log(res.data)
+							document.getElementById('content').innerText = res.data.content
+						})
+					break;
+			}
+		}
+	</script>
+</body>
+
+</html>

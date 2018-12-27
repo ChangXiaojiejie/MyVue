@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    我儿子给我发的信息：{{msg}}
+    <!-- 2.给子组件的标签上绑定自定义事件，并把方法作为事件函数传入 -->
+    <son @pmsg="fn"></son>
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    /***
+
+    实现子组件给父组件传值的过程
+    1.首先给父组件注册一个方法，同时在data设置一个变量准备接收子组件传出的值
+    2.给子组件的标签上绑定自定义事件，并把方法作为事件函数传入
+    3.在子组件中设置模板。在模板中设置事件，触发子组件的方法，在子组件的方法中，获取到传入的自定义事件，并且触发这个事件，传递参数
+    4.子组件触发这个方法，并把数据作为方法的参数传出
+    5.在父组件中处理触发事件的操作
+    ******/
+
+    Vue.component('son',{
+      template:
+      `
+      <p>我想对老爸说：<button @click="send">发送信息</button></p>
+      `,
+      methods:{
+        send(){
+          this.$emit('pmsg','爸爸，你辛苦啦')
+        }
+      }
+
+    });
+
+    const vm = new Vue({
+      el:'#app',
+      data:{
+        msg:''
+      },
+      methods:{
+        fn(data){
+          this.msg = data;
+        }
+      }
+    });
+
+
+
+  </script>
+</body>
+
+</html>

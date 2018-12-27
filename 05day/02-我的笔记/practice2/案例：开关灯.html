@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      /* 容器 */
+
+      .container {
+        width: 150px;
+      }
+
+      /* 灯 */
+
+      .light {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 100px;
+        margin: 0 auto;
+        color: #fff;
+        background-color: pink;
+      }
+
+      /* 开灯 */
+
+      .turn-on {
+        background-color: yellow;
+        color: #000;
+      }
+
+      /* 灯座 */
+
+      .bottom {
+        width: 150px;
+        height: 50px;
+        margin-top: 10px;
+        line-height: 50px;
+        text-align: center;
+        color: #fff;
+        background-color: #000;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <!-- 灯泡组件 -->
+      <light-head></light-head>
+
+      <!-- 灯座组件 -->
+      <light-bottom></light-bottom>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      // 1 创建一个bus
+      const bus = new Vue()
+
+      // 灯泡组件，要接受数据，因此，注册事件
+      // 灯座组件，要传递数据，因此，触发事件
+
+      // 创建灯泡组件
+      Vue.component('light-head', {
+        template: `
+          <div class="light" :class="{ 'turn-on': isTurnOn }">
+            我是一盏灯
+          </div>
+        `,
+        created(){
+          bus.$on('deng',data=>{
+            console.log()
+            
+            this.isTurnOn = data;
+          })
+        },
+        data(){
+          return {
+            isTurnOn:false
+          }
+        }
+        
+
+      })
+
+      // 创建灯座组件
+      Vue.component('light-bottom', {
+        template: `
+          <div class="bottom">
+            <button @click="fn(true)">开</button>
+            <button @click="fn(false)">关</button>
+          </div>
+        `,
+
+        methods:{
+          fn(flag){
+            //
+            console.log('发送')
+            
+            bus.$emit('deng',flag);
+          }
+        }
+
+
+
+
+       
+      })
+
+      var vm = new Vue({
+        el: '#app',
+        data: {}
+      })
+    </script>
+  </body>
+</html>

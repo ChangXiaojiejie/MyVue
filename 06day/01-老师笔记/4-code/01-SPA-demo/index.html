@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .content {
+        background-color: #daa520;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+			a标签锚点值的作用：页面内部跳转
+		 -->
+    <ul>
+      <li><a href="#/find">发现音乐</a></li>
+      <li><a href="#/my">我的音乐</a></li>
+      <li><a href="#/friend">朋友</a></li>
+    </ul>
+
+    <div class="content" id="content"></div>
+
+    <script src="./node_modules/axios/dist/axios.js"></script>
+    <script>
+      // SPA的技术点：
+      // 1 ajax
+      // 2 哈希值（hash #）
+      // 3 hashchange 事件
+
+      const fn = () => {
+        // console.log('哈希值改变了', location.hash)
+        switch (location.hash) {
+          // 发现音乐
+          case '#/find':
+            axios.get('./find.json').then(res => {
+              // console.log(res)
+              document.getElementById('content').innerHTML = `<h1>${
+                res.data.content
+              }</h1>`
+            })
+            break
+
+          case '#/my':
+            axios.get('./my.json').then(res => {
+              // console.log(res)
+              document.getElementById('content').innerHTML = `<h1>${
+                res.data.content
+              }</h1>`
+            })
+            break
+
+          case '#/friend':
+            axios.get('./friend.json').then(res => {
+              // console.log(res)
+              document.getElementById('content').innerHTML = `<h1>${
+                res.data.content
+              }</h1>`
+            })
+            break
+
+          default:
+            break
+        }
+      }
+
+      // 进入页面，调用函数，获取当前的 哈希值 ，发送请求获取数据
+      fn()
+
+      window.addEventListener('hashchange', fn)
+    </script>
+  </body>
+</html>

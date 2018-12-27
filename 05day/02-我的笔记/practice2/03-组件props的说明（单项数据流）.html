@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+    父亲叫：{{obj.name}}
+
+    <son :child="obj"></son>
+    
+
+
+  </div>
+  <script src="./vue.js"></script>
+  <script>
+
+    //创建子组件
+    Vue.component('son',{
+      
+      template:
+      `
+      <p>我的名字叫：{{child.name}}，我的年龄是：{{child.age}}；<button @click="fn">又过了一年</button></p>
+      
+      `,
+      props:['child'],
+      methods:{
+        fn(){
+          this.child.age++;
+        }
+      }
+
+
+    });
+
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+       obj:{
+         name:'张三',
+         age:18
+       }
+      }
+    })
+  </script>
+</body>
+
+</html>

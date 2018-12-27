@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 指定路由入口： -->
+      <ul>
+        <!-- to属性 和 路由规则中的 path 相匹配 -->
+        <li><router-link to="/home">首页</router-link></li>
+        <li><router-link to="/about">关于</router-link></li>
+      </ul>
+
+      <!-- 指定路由出口： -->
+      <router-view></router-view>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+      /* 
+        路由的使用：
+        
+        1 安装路由： npm i vue-router
+        2 在页面中引入路由的js文件（注意：在引入 Vue 之后）
+        3 创建路由实例
+        4 将路由实例与Vue实例关联到一起
+        5 配置路由规则
+        6 在 页面中 指定组件内容展示的位置（ 路由出口 ）
+        7 在 页面中 指定路由的入口（导航菜单 a标签）
+      */
+
+      // 注册home组件
+      const Home = Vue.component('home', {
+        template: `
+          <div>这是 Home 组件</div>
+        `
+      })
+      // 快速简洁的注册组件：
+      const About = {
+        template: `
+          <h2>这是 About 组件</h2>
+        `
+      }
+
+      const router = new VueRouter({
+        // 通过该配置配置路由规则
+        routes: [
+          // 每一个路由规则都是一个对象
+          // path 表示路由规则的路径，不要带有#
+          // component 用来指定展示的内容，是一个组件
+          { path: '/home', component: Home },
+          { path: '/about', component: About }
+        ]
+      })
+
+      const vm = new Vue({
+        el: '#app',
+        data: {},
+        // 将路由实例与Vue实例关联到一起
+        router
+      })
+    </script>
+  </body>
+</html>
